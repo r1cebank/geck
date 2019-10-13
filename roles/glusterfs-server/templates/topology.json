@@ -1,0 +1,24 @@
+{
+  "clusters": [
+    {
+      "nodes": [
+        {
+          "node": {
+            "hostnames": {
+              "manage": [
+                "{{ ansible_hostname }}"
+              ],
+              "storage": [
+                "{{ ansible_default_ipv4.address }}"
+              ]
+            },
+            "zone": 1
+          },
+          "devices": [
+            "{{ volume_device }}"
+          ]
+        }
+      ]
+    }
+  ]
+}

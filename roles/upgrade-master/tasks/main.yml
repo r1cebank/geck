@@ -1,0 +1,49 @@
+---
+- name: upgrade control-plane
+  become: yes
+  become_user: root
+  shell: >
+    kubeadm upgrade
+    apply
+    --yes
+    {{ k8s_version }}
+
+- name: upgrade node
+  become: yes
+  become_user: root
+  shell: >
+    kubeadm upgrade
+    node config
+    --kubelet-version "$(kubelet --version | cut -d ' ' -f 2)"
+
+- name: restart kubelet
+  become: yes
+  become_user: root
+  systemd:
+    state: restarted
+    daemon_reload: yes
+    name: kubelet
+
+- name: create config directory
+  file:
+    path: "{{ansible_env.HOME}}/.kube/"
+    state: directory
+    owner: "{{ansible_env.USER}}"
+    group: "{{ansible_env.USER}}"
+    mode: 0755
+
+- name: copy admin.conf
+  become: yes
+  become_user: root
+  copy:
+    src: /etc/kubernetes/admin.conf
+    dest: "{{ansible_env.HOME}}/.kube/config"
+    owner: "{{ansible_env.USER}}"
+    group: "{{ansible_env.USER}}"
+    mode: 0755
+    remote_src: yes
+
+- name: install weave-net CNI plugin
+  shell: >
+    kubectl apply
+    -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"

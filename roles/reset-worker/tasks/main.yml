@@ -1,0 +1,23 @@
+---
+- name: reset worker
+  become: yes
+  become_user: root
+  shell: kubeadm reset -f
+
+- register: token_cmd
+  become: yes
+  become_user: root
+  delegate_to: "{{ groups['kube-master'][0] }}"
+  shell: >
+    kubeadm
+    token create
+    --ttl 5m
+
+- name: join cluster
+  become: yes
+  become_user: root
+  shell: >
+    kubeadm
+    join
+    --token "{{ token_cmd.stdout }}"
+    --discovery-file "{{ansible_env.HOME}}/.kube/config"

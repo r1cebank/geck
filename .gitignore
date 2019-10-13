@@ -1,0 +1,6 @@
+/secrets/secrets.yml
+/secrets/admin.conf
+/secrets/*.ovpn
+/pi/tmp/
+/tmp/
+*.retry
