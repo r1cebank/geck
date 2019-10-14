@@ -1,34 +1,13 @@
 ---
-- name: reset master
-  become: yes
-  become_user: root
-  shell: kubeadm reset -f
+- name: check if k3s is installed
+  stat:
+    path: /usr/local/bin/k3s
+  register: k3s_installed
 
-- name: init k8s
-  become: yes
-  become_user: root
-  shell: kubeadm init --kubernetes-version {{ k8s_version }}
+- name: kill all k3s resources
+  shell: /usr/local/bin/k3s-killall.sh
+  when: k3s_installed.stat.exists == true
 
-- name: create config directory
-  file:
-    path: "{{ansible_env.HOME}}/.kube/"
-    state: directory
-    owner: "{{ansible_env.USER}}"
-    group: "{{ansible_env.USER}}"
-    mode: 0755
-
-- name: copy admin.conf
-  become: yes
-  become_user: root
-  copy:
-    src: /etc/kubernetes/admin.conf
-    dest: "{{ansible_env.HOME}}/.kube/config"
-    owner: "{{ansible_env.USER}}"
-    group: "{{ansible_env.USER}}"
-    mode: 0755
-    remote_src: yes
-
-- name: install weave-net CNI plugin
-  shell: >
-    kubectl apply
-    -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
+- name: uninstall k3s
+  shell: /usr/local/bin/k3s-uninstall.sh
+  when: k3s_installed.stat.exists == true

@@ -1,0 +1,13 @@
+---
+- name: Reboot host
+  shell: sleep 2 && shutdown -r now "Ansible Reboot"
+  async: 1
+  poll: 0
+  ignore_errors: yes
+
+- name: Wait for host
+  wait_for_connection:
+      connect_timeout: 20
+      sleep: 5
+      delay: 10
+      timeout: 300

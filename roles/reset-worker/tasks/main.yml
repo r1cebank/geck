@@ -1,23 +1,13 @@
 ---
-- name: reset worker
-  become: yes
-  become_user: root
-  shell: kubeadm reset -f
+- name: check if k3s is installed
+  stat:
+    path: /usr/local/bin/k3s
+  register: k3s_installed
 
-- register: token_cmd
-  become: yes
-  become_user: root
-  delegate_to: "{{ groups['kube-master'][0] }}"
-  shell: >
-    kubeadm
-    token create
-    --ttl 5m
+- name: kill all k3s resources
+  shell: /usr/local/bin/k3s-killall.sh
+  when: k3s_installed.stat.exists == true
 
-- name: join cluster
-  become: yes
-  become_user: root
-  shell: >
-    kubeadm
-    join
-    --token "{{ token_cmd.stdout }}"
-    --discovery-file "{{ansible_env.HOME}}/.kube/config"
+- name: uninstall k3s
+  shell: /usr/local/bin/k3s-agent-uninstall.sh
+  when: k3s_installed.stat.exists == true

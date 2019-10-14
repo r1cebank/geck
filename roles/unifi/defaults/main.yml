@@ -1,8 +1,0 @@
-# REQUIRED
-ingress_domain:
-
-# OPTIONAL
-unifi_image: jacobalberty/unifi:arm32v7-beta
-unifi_storage_size: "10Gi"
-metallb_peer_asn: 64512
-metallb_peer_address: "{{ ansible_default_ipv4.gateway }}"

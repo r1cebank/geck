@@ -1,24 +1,21 @@
 ---
 - name: test connection
   ping:
-- name: add apt gpg key
-  become: yes
-  become_user: root
-  apt_key:
-    url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
-- name: add apt repo
-  become: yes
-  become_user: root
-  apt_repository:
-    repo: deb http://apt.kubernetes.io kubernetes-xenial main
-- name: run apt update
+
+- name: Update system
   become: yes
   become_user: root
   apt:
+    cache_valid_time: 3600
     update_cache: yes
-- name: install kubeadm
+    upgrade: safe
+
+- name: Install tool packages
   become: yes
   become_user: root
   apt:
-    name: kubeadm
-    state: latest
+    name: "{{ packages }}"
+  vars:
+    packages:
+      - nano
+      - git

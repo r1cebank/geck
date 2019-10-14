@@ -1,7 +1,0 @@
-# REQUIRED
-ingress_domain:
-
-# OPTIONAL
-dashboard_image: k8s.gcr.io/kubernetes-dashboard-arm:v1.10.1
-heapster_image: k8s.gcr.io/heapster-arm:v1.5.2
-influxdb_image: k8s.gcr.io/heapster-influxdb-arm:v1.5.2

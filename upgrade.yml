@@ -8,9 +8,11 @@
   any_errors_fatal: true
   roles:
     - upgrade-master
+    - reboot
 
 - hosts: kube-node
   roles:
     - upgrade-worker
+    - reboot
 
-- import_playbook: deploy.yml
+# - import_playbook: deploy.yml

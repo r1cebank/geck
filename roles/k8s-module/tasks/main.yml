@@ -1,8 +1,0 @@
----
-- include: deps.yml tags=kube-system,kube-system:deps
-
-- name: create kube-system namespace
-  k8s:
-    name: kube-system
-    kind: Namespace
-    state: present

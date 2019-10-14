@@ -1,16 +1,11 @@
 ---
-- name: upgrade node
+- register: k3s_master_token
   become: yes
   become_user: root
-  shell: >
-    kubeadm upgrade
-    node config
-    --kubelet-version "$(kubelet --version | cut -d ' ' -f 2)"
+  delegate_to: "{{ groups['kube-master'][0] }}"
+  shell: "cat /var/lib/rancher/k3s/server/node-token"
 
-- name: restart kubelet
-  become: yes
-  become_user: root
-  systemd:
-    state: restarted
-    daemon_reload: yes
-    name: kubelet
+- name: install k3s - agent
+  shell: "curl -sfL {{ get_k3s_url }} | K3S_URL=https://{{ hostvars[groups['kube-master'][0]].ansible_default_ipv4.address }}:6443 K3S_TOKEN={{ k3s_master_token.stdout }} sh -"
+  args:
+    warn: no
