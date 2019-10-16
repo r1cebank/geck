@@ -1,1 +1,2 @@
 get_k3s_url: https://get.k3s.io
+k3s_version: v0.9.1

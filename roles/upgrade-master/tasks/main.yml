@@ -1,5 +1,5 @@
 ---
 - name: install k3s
-  shell:  "curl -sfL {{ get_k3s_url }} | K3S_KUBECONFIG_MODE=\"644\" INSTALL_K3S_EXEC=\"server --bind-address 0.0.0.0\" sh -"
+  shell:  "curl -sfL {{ get_k3s_url }} | INSTALL_K3S_VERSION=\"{{ k3s_version }}\" K3S_KUBECONFIG_MODE=\"644\" INSTALL_K3S_EXEC=\"server --bind-address 0.0.0.0\" sh -"
   args:
     warn: no
