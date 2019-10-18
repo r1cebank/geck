@@ -1,2 +1,3 @@
 get_k3s_url: https://get.k3s.io
 k3s_version: v0.9.1
+etcd_image: r1cebank/etcd:3.3.10

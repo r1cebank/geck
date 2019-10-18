@@ -1,8 +1,9 @@
 ---
-# - hosts: all
-#   any_errors_fatal: true
-#   roles:
-#     - glusterfs-client
+- hosts: kube-master
+  any_errors_fatal: true
+  roles:
+    - dns-updater
+    - etcd
 
 # - hosts: gfs-cluster
 #   any_errors_fatal: true
@@ -10,15 +11,15 @@
 #     - k8s-module
 #     - glusterfs-server
 
-- hosts: kube-node[0]
-  any_errors_fatal: true
-  roles:
-    - k8s-module
-    - helm
-    # - ark
-    - metallb
-    # - ingress
-    # - dashboard
-    # - openvpn
-    # - unifi
-    # - port-forwarding
+# - hosts: kube-node[0]
+#   any_errors_fatal: true
+#   roles:
+#     - k8s-module
+#     - helm
+#     # - ark
+#     - metallb
+#     # - ingress
+#     # - dashboard
+#     # - openvpn
+#     # - unifi
+#     # - port-forwarding

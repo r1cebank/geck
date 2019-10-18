@@ -11,3 +11,26 @@
 - name: uninstall k3s
   shell: /usr/local/bin/k3s-uninstall.sh
   when: k3s_installed.stat.exists == true
+
+- name: remove etcd directory
+  become: yes
+  file:
+    path: /var/lib/etcd
+    state: absent
+
+- name: remove dns-updater directory
+  become: yes
+  file:
+    path: /home/k8s/dns-updater
+    state: absent
+
+- name: remove dns-updater configuration
+  become: yes
+  file:
+    path: /home/k8s/.cloudflare-ddns
+    state: absent
+
+- name: remove dns-updater cron job
+  cron:
+    name: dns-updater
+    state: absent
