@@ -1,6 +1,6 @@
 - name: clone dns-updater
   git:
-    repo: https://github.com/LINKIWI/cloudflare-ddns-client.git
+    repo: https://github.com/r1cebank/cloudflare-ddns-client.git
     dest: /home/k8s/dns-updater
 
 - name: install dns-updater
