@@ -4,6 +4,7 @@
   roles:
     - dns-updater
     - etcd
+    - letsencrypt
 
 # - hosts: gfs-cluster
 #   any_errors_fatal: true

@@ -18,5 +18,5 @@
   vars:
     packages:
       - nano
-      - git
-      - make
+      - build-essential
+      - python3-pip

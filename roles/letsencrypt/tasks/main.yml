@@ -1,0 +1,31 @@
+---
+- name: install latest certbot
+  become: yes
+  shell: pip3 install certbot certbot-dns-cloudflare
+
+- name: copy certbot configuration
+  template:
+    src: cloudflare.ini
+    dest: "{{ k8s_home }}/.cloudflare.ini"
+
+- name: get certificate
+  become: yes
+  shell: >
+    certbot
+    certonly
+    --agree-tos
+    --non-interactive
+    --dns-cloudflare
+    --dns-cloudflare-credentials
+    {{ k8s_home }}/.cloudflare.ini
+    -d {{ item }}
+    -m {{ certbot_email }}
+  with_items: "{{ cert_domains }}"
+
+- name: create certbot renew cron job
+  cron:
+    minute="0"
+    hour="0"
+    day="1"
+    name="certbot-renew"
+    job="certbot renew -q"

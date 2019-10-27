@@ -1,7 +1,7 @@
 - name: clone dns-updater
   git:
     repo: https://github.com/r1cebank/cloudflare-ddns-client.git
-    dest: /home/k8s/dns-updater
+    dest: "{{ k8s_home }}/dns-updater"
 
 - name: install dns-updater
   shell: make install
@@ -10,8 +10,8 @@
 
 - name: copy dns-updater configuration
   template:
-    src: ./cloudflare-ddns
-    dest: /home/k8s/.cloudflare-ddns
+    src: cloudflare-ddns
+    dest: "{{ k8s_home }}/.cloudflare-ddns"
 
 - name: create dns-updater cron job
   cron:

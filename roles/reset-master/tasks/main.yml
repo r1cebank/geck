@@ -34,3 +34,24 @@
   cron:
     name: dns-updater
     state: absent
+
+- name: remove certbot configuration
+  become: yes
+  file:
+    path: /home/k8s/.cloudflare.ini
+    state: absent
+
+- name: remove letsencrypt directory
+  become: yes
+  file:
+    path: /var/log/letsencrypt
+    state: absent
+
+- name: remove certbot
+  become: yes
+  shell: pip3 uninstall -y certbot certbot-dns-cloudflare
+
+- name: remove certbot-renew cron job
+  cron:
+    name: certbot-renew
+    state: absent
