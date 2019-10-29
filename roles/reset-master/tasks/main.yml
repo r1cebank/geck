@@ -55,3 +55,21 @@
   cron:
     name: certbot-renew
     state: absent
+
+- name: remove nginx directory
+  become: yes
+  file:
+    path: "{{ nginx_config_dir }}"
+    state: absent
+
+- name: create temp directory
+  become: yes
+  file:
+    path: "{{ temp_dir }}"
+    state: directory
+
+- name: remove temp files directory
+  become: yes
+  file:
+    path: "{{ temp_dir }}/"
+    state: absent

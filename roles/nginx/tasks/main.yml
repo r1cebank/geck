@@ -1,0 +1,54 @@
+---
+- name: copy nginx docker-compose
+  template:
+    src: docker-compose.yml
+    dest: "{{ temp_dir }}/docker-compose.yml"
+
+- name: remove current nginx install
+  shell: docker-compose down
+  args:
+    chdir: "{{ temp_dir }}"
+
+- name: create nginx config directory
+  become: yes
+  file:
+    path: "{{ nginx_config_dir }}"
+    owner: k8s
+    state: directory
+
+- name: ensure nginx site config exists
+  file:
+    path: "{{ nginx_config_dir }}/conf.d/sites-enabled"
+    state: directory
+
+- name: copy nginx config to directory
+  template:
+    src: "{{ item }}"
+    dest: "{{ nginx_config_dir }}/{{ item }}"
+  with_items:
+    - nginx.conf
+    - ssl.conf
+
+- name: copy nginx configs
+  copy:
+    src: "{{ item }}"
+    dest: "{{ nginx_config_dir }}/{{ item }}"
+  with_items:
+    - common_location.conf
+    - common.conf
+    - mime.types
+
+- name: copy http redirect config
+  copy:
+    src: redirect.conf
+    dest: "{{ nginx_config_dir }}/conf.d/sites-enabled/redirect.conf"
+
+- name: generate dhparam
+  shell: openssl dhparam -out dhparams.pem 128
+  args:
+    chdir: "{{ nginx_config_dir }}"
+
+- name: start nginx
+  shell: docker-compose up -d
+  args:
+    chdir: "{{ temp_dir }}"

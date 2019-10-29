@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  nginx:
+    container_name: nginx
+    image: {{ nginx_image }}
+    ports:
+      - 5000:80
+      - 5001:443
+    volumes:
+      - "{{ nginx_config_dir }}:/etc/nginx"
+      - "{{ lets_encrypt_dir }}:{{ lets_encrypt_dir }}"

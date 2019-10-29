@@ -2,9 +2,10 @@
 - hosts: kube-master
   any_errors_fatal: true
   roles:
-    - dns-updater
-    - etcd
-    - letsencrypt
+    # - dns-updater
+    # - etcd
+    # - letsencrypt
+    - nginx
 
 # - hosts: gfs-cluster
 #   any_errors_fatal: true
