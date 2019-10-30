@@ -1,0 +1,9 @@
+---
+- name: install mosquitto
+  become: yes
+  apt:
+    name: mosquitto
+
+- name: enable mosquitto service
+  become: yes
+  shell: systemctl enable mosquitto.service

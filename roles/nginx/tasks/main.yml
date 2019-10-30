@@ -44,7 +44,7 @@
     dest: "{{ nginx_config_dir }}/conf.d/sites-enabled/redirect.conf"
 
 - name: generate dhparam
-  shell: openssl dhparam -out dhparams.pem 128
+  shell: openssl dhparam -out dhparams.pem {{ dhparam_size }}
   args:
     chdir: "{{ nginx_config_dir }}"
 

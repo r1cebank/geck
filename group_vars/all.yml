@@ -6,6 +6,8 @@ temp_dir: /tmp/k8s_pi
 nginx_config_dir: /etc/nginx
 lets_encrypt_dir: /etc/letsencrypt
 k8s_home: /home/k8s
+nodejs_version: 12.x
+dhparam_size: 256
 certbot_email: siyuangao@gmail.com
 cert_domains:
   - "*.elica.io"

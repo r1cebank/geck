@@ -5,7 +5,9 @@
     # - dns-updater
     # - etcd
     # - letsencrypt
-    - nginx
+    # - nginx
+    # - mqtt
+    - nodejs
 
 # - hosts: gfs-cluster
 #   any_errors_fatal: true
