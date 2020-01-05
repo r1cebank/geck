@@ -24,8 +24,9 @@
 
 - name: create certbot renew cron job
   cron:
-    minute="0"
-    hour="0"
-    day="1"
-    name="certbot-renew"
-    job="certbot renew -q"
+    user: root
+    minute: "0"
+    hour: "0"
+    day: "1"
+    name: "certbot-renew"
+    job: "certbot renew -q"
