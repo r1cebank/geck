@@ -15,7 +15,7 @@
 
 - name: create dns-updater cron job
   cron:
-    minute="0"
-    hour="0"
-    name="dns-updater"
-    job="/usr/local/bin/cloudflare-ddns --update-now > /dev/null 2>&1"
+    minute: "0"
+    hour: "0"
+    name: "dns-updater"
+    job: "/usr/local/bin/cloudflare-ddns --update-now > /dev/null 2>&1"
