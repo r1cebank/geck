@@ -35,6 +35,7 @@
     dest: "{{ nginx_config_dir }}/{{ item }}"
   with_items:
     - common_location.conf
+    - common_ws.conf
     - common.conf
     - mime.types
 
