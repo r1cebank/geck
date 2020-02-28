@@ -1,5 +1,5 @@
 get_k3s_url: https://get.k3s.io
-k3s_version: v0.9.1
+k3s_version: v1.17.3+k3s1
 etcd_image: r1cebank/etcd:3.3.10
 nginx_image: nginx:stable-alpine
 temp_dir: /tmp/k8s_pi
