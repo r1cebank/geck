@@ -1,0 +1,4 @@
+---
+- name: update latest certbot
+  become: yes
+  shell: pip3 install certbot certbot-dns-cloudflare -U

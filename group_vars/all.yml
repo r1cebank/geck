@@ -1,13 +1,14 @@
 get_k3s_url: https://get.k3s.io
 k3s_version: v1.17.3+k3s1
-etcd_image: r1cebank/etcd:3.3.10
 nginx_image: nginx:stable-alpine
 temp_dir: /tmp/k8s_pi
 nginx_config_dir: /etc/nginx
+htpasswd_dir: /etc/apache2/.htpasswd
 lets_encrypt_dir: /etc/letsencrypt
 k8s_home: /home/k8s
 nodejs_version: 12.x
 dhparam_size: 256
 certbot_email: siyuangao@gmail.com
+certbot_staging: true
 cert_domains:
   - "*.elica.io"

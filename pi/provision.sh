@@ -6,7 +6,7 @@ sd_device_path=""
 static_ip=""
 pi_hostname=""
 ssh_pub_key=""
-os_version="1.11.3"
+os_version="1.12.0"
 
 usage() {
   cat <<EOF
@@ -72,7 +72,7 @@ pushd "${script_dir}" > /dev/null
         -o "hypriotos-rpi-v${os_version}.img.zip"
       curl -sSL "https://github.com/hypriot/image-builder-rpi/releases/download/v${os_version}/hypriotos-rpi-v${os_version}.img.zip.sha256" \
         -o "hypriotos-rpi-v${os_version}.img.zip.sha256"
-      shasum -c "hypriotos-rpi-v${os_version}.img.zip.sha256"
+      sha256sum -c "hypriotos-rpi-v${os_version}.img.zip.sha256"
 
       unzip "hypriotos-rpi-v${os_version}.img.zip"
       rm "hypriotos-rpi-v${os_version}.img.zip"

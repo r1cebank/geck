@@ -9,6 +9,11 @@
   roles:
     - reset-master
 
+- hosts: kube-gateway
+  any_errors_fatal: true
+  roles:
+    - reset-gateway
+
 - hosts: kube-node
   any_errors_fatal: true
   roles:

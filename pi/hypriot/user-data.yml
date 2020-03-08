@@ -24,7 +24,9 @@ users:
 
 locale: "en_US.UTF-8"
 
-package_upgrade: false
+package_update: true
+package_upgrade: true
+package_reboot_if_required: true
 
 packages:
   # Host is able to resolve .local addresses
@@ -36,7 +38,6 @@ runcmd:
   - 'service ntp stop && ntpd -gq && service ntp start'
   # install HypriotOS GPG key
   - 'curl -L https://packagecloud.io/Hypriot/rpi/gpgkey | sudo apt-key add -'
-
 power_state:
   mode: reboot
   condition: true

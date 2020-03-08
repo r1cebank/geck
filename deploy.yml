@@ -1,29 +1,31 @@
 ---
-- hosts: kube-master
+# - hosts: kube-master
+#   any_errors_fatal: true
+#   roles:
+#     - dns-updater
+#     - letsencrypt
+#     - nginx
+#     - mqtt
+#     - nodejs
+
+# - hosts: kube-gateway
+#   any_errors_fatal: true
+#   roles:
+#     - dns-updater
+#     - letsencrypt
+#     - nginx
+#     - mqtt
+#     - nodejs
+
+- hosts: kube-node[0]
   any_errors_fatal: true
   roles:
-    # - dns-updater
-    # - etcd
-    # - letsencrypt
-    # - nginx
-    # - mqtt
-    - nodejs
-
-# - hosts: gfs-cluster
-#   any_errors_fatal: true
-#   roles:
-#     - k8s-module
-#     - glusterfs-server
-
-# - hosts: kube-node[0]
-#   any_errors_fatal: true
-#   roles:
-#     - k8s-module
-#     - helm
-#     # - ark
-#     - metallb
-#     # - ingress
-#     # - dashboard
-#     # - openvpn
-#     # - unifi
-#     # - port-forwarding
+    - k8s-module
+    - helm
+    # - ark
+    - metallb
+    # - ingress
+    # - dashboard
+    # - openvpn
+    # - unifi
+    # - port-forwarding

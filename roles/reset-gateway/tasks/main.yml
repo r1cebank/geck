@@ -1,0 +1,56 @@
+---
+- name: remove dns-updater directory
+  become: yes
+  file:
+    path: /home/k8s/dns-updater
+    state: absent
+
+- name: remove dns-updater configuration
+  become: yes
+  file:
+    path: /home/k8s/.cloudflare-ddns
+    state: absent
+
+- name: remove dns-updater cron job
+  cron:
+    name: dns-updater
+    state: absent
+
+- name: remove certbot configuration
+  become: yes
+  file:
+    path: /home/k8s/.cloudflare.ini
+    state: absent
+
+- name: remove letsencrypt directory
+  become: yes
+  file:
+    path: /var/log/letsencrypt
+    state: absent
+
+- name: remove certbot
+  become: yes
+  shell: pip3 uninstall -y certbot certbot-dns-cloudflare
+
+- name: remove certbot-renew cron job
+  cron:
+    name: certbot-renew
+    state: absent
+
+- name: remove nginx directory
+  become: yes
+  file:
+    path: "{{ nginx_config_dir }}"
+    state: absent
+
+- name: create temp directory
+  become: yes
+  file:
+    path: "{{ temp_dir }}"
+    state: directory
+
+- name: remove temp files directory
+  become: yes
+  file:
+    path: "{{ temp_dir }}/"
+    state: absent

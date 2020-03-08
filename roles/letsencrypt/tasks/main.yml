@@ -14,6 +14,7 @@
     certbot
     certonly
     --agree-tos
+    --staging {{ certbot_staging }}
     --non-interactive
     --dns-cloudflare
     --dns-cloudflare-credentials
