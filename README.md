@@ -1,4 +1,4 @@
-# stella
+# geck
 
 Raspberry pi based Kubernetes cluster provisioned with Ansible
 
