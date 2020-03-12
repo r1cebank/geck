@@ -24,9 +24,7 @@ users:
 
 locale: "en_US.UTF-8"
 
-package_update: true
-package_upgrade: true
-package_reboot_if_required: true
+package_upgrade: false
 
 packages:
   # Host is able to resolve .local addresses

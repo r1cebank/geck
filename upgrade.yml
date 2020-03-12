@@ -1,25 +1,16 @@
 ---
-- hosts: all
-  any_errors_fatal: true
-  roles:
-    - common
-
 - hosts: kube-master
   any_errors_fatal: true
   roles:
     - upgrade-master
-    - reboot
 
 - hosts: kube-gateway
   any_errors_fatal: true
   roles:
     - upgrade-gateway
-    - reboot
-
 
 - hosts: kube-node
   roles:
     - upgrade-worker
-    - reboot
 
 - import_playbook: deploy.yml

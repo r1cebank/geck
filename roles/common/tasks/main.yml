@@ -1,14 +1,12 @@
 ---
-- name: test connection
+- name: Test connection
   ping:
 
-- name: Update system
+- name: Update apt
   become: yes
   become_user: root
   apt:
-    cache_valid_time: 3600
     update_cache: yes
-    upgrade: safe
 
 - name: Install tool packages
   become: yes
@@ -20,3 +18,12 @@
       - nano
       - build-essential
       - python3-pip
+      - python-dev
+
+- name: Switch iptables to legacy mode
+  become: yes
+  ignore_errors: yes
+  become_user: root
+  command: "{{ item }}"
+  with_items:
+    - update-alternatives --set iptables /usr/sbin/iptables-legacy

@@ -1,0 +1,6 @@
+---
+- name: Shutdown host
+  shell: sleep 2 && shutdown -h now "Ansible Shutdown"
+  async: 1
+  poll: 0
+  ignore_errors: yes

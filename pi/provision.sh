@@ -6,7 +6,7 @@ sd_device_path=""
 static_ip=""
 pi_hostname=""
 ssh_pub_key=""
-os_version="1.12.0"
+os_version="1.11.3"
 
 usage() {
   cat <<EOF

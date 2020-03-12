@@ -17,15 +17,7 @@
 #     - mqtt
 #     - nodejs
 
-- hosts: kube-node[0]
+- hosts: kube-master[0]
   any_errors_fatal: true
   roles:
-    - k8s-module
-    - helm
-    # - ark
-    - metallb
-    # - ingress
-    # - dashboard
-    # - openvpn
-    # - unifi
-    # - port-forwarding
+    - kube-dashboard

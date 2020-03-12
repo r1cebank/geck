@@ -12,3 +12,13 @@
   shell: /usr/local/bin/k3s-uninstall.sh
   when: k3s_installed.stat.exists == true
 
+- name: remove temp files directory
+  become: yes
+  file:
+    path: "{{ temp_dir }}"
+    state: absent
+
+- name: create temp directory
+  file:
+    path: "{{ temp_dir }}"
+    state: directory
