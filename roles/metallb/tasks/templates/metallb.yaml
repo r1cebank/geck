@@ -1,0 +1,11 @@
+apiVersion: helm.cattle.io/v1
+kind: HelmChart
+metadata:
+  name: metallb
+  namespace: kube-system
+spec:
+  chart: stable/metallb
+  set:
+    configInline.address-pools[0].name: "default"
+    configInline.address-pools[0].protocol: "layer2"
+    configInline.address-pools[0].addresses[0]: "{{ metallb_address_range }}"

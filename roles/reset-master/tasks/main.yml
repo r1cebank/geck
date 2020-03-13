@@ -41,4 +41,4 @@
     path: "{{ storage_mount }}"
     src: "{{ storage_devide }}"
     fstype: ext4
-    state: unmounted
+    state: absent

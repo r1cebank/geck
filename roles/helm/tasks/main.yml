@@ -1,0 +1,31 @@
+---
+- name: Check if helm is installed
+  stat:
+    path: /usr/local/bin/helm
+  register: helm_installed
+
+- name: Install helm
+  become: yes
+  shell:  "curl -sfL {{ get_helm_url }} | bash"
+  args:
+    warn: no
+  when: helm_installed.stat.exists == false
+
+- name: Remove existing helm repo
+  ignore_errors: yes
+  shell:  "helm repo remove stable"
+  args:
+    warn: no
+  when: helm_installed.stat.exists == true
+
+- name: Install helm repo
+  shell:  "helm repo add stable {{ helm_chart_url }}"
+  args:
+    warn: no
+  when: helm_installed.stat.exists == true
+
+- name: Update helm repo
+  shell:  "helm repo update"
+  args:
+    warn: no
+  when: helm_installed.stat.exists == true

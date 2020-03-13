@@ -22,6 +22,8 @@
   roles:
     - kube-dashboard
     - nfs-server
+    - helm
+    - metallb
 
 - hosts: kube-node
   any_errors_fatal: true

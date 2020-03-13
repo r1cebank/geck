@@ -18,4 +18,4 @@
     path: "{{ nfs_mount }}"
     src: "{{ hostvars[groups['kube-master'][0]].ansible_default_ipv4.address }}:{{ storage_mount }}"
     fstype: nfs
-    state: unmounted
+    state: absent
