@@ -21,3 +21,9 @@
   any_errors_fatal: true
   roles:
     - kube-dashboard
+    - nfs-server
+
+- hosts: kube-node
+  any_errors_fatal: true
+  roles:
+    - nfs-client

@@ -1,0 +1,36 @@
+---
+- name: Mount Storage
+  become: yes
+  mount:
+    path: "{{ storage_mount }}"
+    src: "{{ storage_devide }}"
+    fstype: ext4
+    state: mounted
+
+- name: Set permission on mount
+  become: yes
+  file:
+    path: "{{ storage_mount }}"
+    state: directory
+    owner: k8s
+    group: k8s
+
+- name: Install nfs-kernel-server
+  become: yes
+  apt:
+    name: nfs-kernel-server
+    state: present
+
+- name: Copy nfs exports
+  become: yes
+  template:
+    src: exports
+    dest: /etc/exports
+    group: root
+    owner: root
+
+- name: Restart nfs server
+  become: yes
+  service:
+    name: nfs-kernel-server
+    state: restarted

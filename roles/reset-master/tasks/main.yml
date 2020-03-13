@@ -1,24 +1,44 @@
 ---
-- name: check if k3s is installed
+- name: Check if k3s is installed
   stat:
     path: /usr/local/bin/k3s
   register: k3s_installed
 
-- name: kill all k3s resources
+- name: Kill all k3s resources
   shell: /usr/local/bin/k3s-killall.sh
   when: k3s_installed.stat.exists == true
 
-- name: uninstall k3s
+- name: Uninstall k3s
   shell: /usr/local/bin/k3s-uninstall.sh
   when: k3s_installed.stat.exists == true
 
-- name: remove temp files directory
+- name: Remove temp files directory
   become: yes
   file:
     path: "{{ temp_dir }}"
     state: absent
 
-- name: create temp directory
+- name: Create temp directory
   file:
     path: "{{ temp_dir }}"
     state: directory
+
+- name: Remove nfs exports
+  become: yes
+  file:
+    path: /etc/exports
+    state: absent
+
+- name: Remove nfs-kernel-server package
+  become: yes
+  apt:
+    name: nfs-kernel-server
+    state: absent
+
+- name: Reset mount
+  become: yes
+  mount:
+    path: "{{ storage_mount }}"
+    src: "{{ storage_devide }}"
+    fstype: ext4
+    state: unmounted

@@ -3,6 +3,9 @@ k3s_version: v1.17.3+k3s1
 kube_dashboard_version: v2.0.0-rc5
 nginx_image: nginx:stable-alpine
 temp_dir: /tmp/k8s_pi
+storage_devide: /dev/sda
+storage_mount: /mnt/ssd
+nfs_mount: /mnt/nfs
 nginx_config_dir: /etc/nginx
 htpasswd_dir: /etc/apache2/.htpasswd
 lets_encrypt_dir: /etc/letsencrypt
