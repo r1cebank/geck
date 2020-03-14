@@ -45,4 +45,8 @@ The project include scripts from the [ljfranklin/k8s-pi](https://github.com/ljfr
 * -n Hosename
 * -i The IP address
 
+## Run it
 
+```
+ansible-playbook -i inventory/hosts.ini --extra-vars @secrets/secrets.yml bootstrap.yml
+```

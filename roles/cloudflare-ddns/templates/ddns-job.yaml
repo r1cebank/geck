@@ -1,0 +1,29 @@
+---
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: cloudflare-ddns
+spec:
+  schedule: "@hourly"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: cloudflare-ddns
+            imagePullPolicy: Always
+            image: {{ cloudflare_ddns_image }}
+            env:
+              - name: DOMAIN_NAMES
+                value: "{{ ddns_domains }}"
+              - name: API_KEY
+                valueFrom:
+                  secretKeyRef:
+                    name: cloudflare-secret
+                    key: api_token
+              - name: ACCOUNT_EMAIL
+                valueFrom:
+                  secretKeyRef:
+                    name: cloudflare-secret
+                    key: email
+          restartPolicy: OnFailure

@@ -1,0 +1,34 @@
+---
+- name: Copy over secrets file
+  template:
+    src: "{{ item }}"
+    dest: "{{ temp_dir }}/{{ item }}"
+  with_items:
+    - ddns-secrets.yaml
+    - ddns-job.yaml
+
+- name: Create ddns namespace
+  k8s:
+    name: cloudflare-ddns
+    kubeconfig: /etc/rancher/k3s/k3s.yaml
+    kind: Namespace
+    state: present
+
+- name: Import secret
+  k8s:
+    state: present
+    namespace: cloudflare-ddns
+    kubeconfig: /etc/rancher/k3s/k3s.yaml
+    src: "{{ temp_dir }}/ddns-secrets.yaml"
+
+- name: Remove secret file
+  file:
+    path: "{{ temp_dir }}/ddns-secrets.yaml"
+    state: absent
+
+- name: Create cron job
+  k8s:
+    state: present
+    namespace: cloudflare-ddns
+    kubeconfig: /etc/rancher/k3s/k3s.yaml
+    src: "{{ temp_dir }}/ddns-job.yaml"
