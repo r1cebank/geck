@@ -4,12 +4,12 @@
   roles:
     - common
 
-- hosts: kube-node
+- hosts: kube_node
   any_errors_fatal: true
   roles:
     - reset-worker
 
-- hosts: kube-master
+- hosts: kube_master
   any_errors_fatal: true
   roles:
     - reset-master

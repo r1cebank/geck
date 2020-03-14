@@ -1,0 +1,31 @@
+---
+# - name: Copy over helm deploy file
+#   template:
+#     src: cert-manager.yaml
+#     dest: "{{ temp_dir }}/cert-manager.yaml"
+
+# - name: Install cert-manager crds
+#   shell: "kubectl apply --validate=false -f {{ cert_manager_crds_url }}"
+
+# - name: Install cert-manager from helm
+#   k8s:
+#     state: present
+#     kubeconfig: /etc/rancher/k3s/k3s.yaml
+#     src: "{{ temp_dir }}/cert-manager.yaml"
+
+- name: Copy over clusterIssuer riles
+  template:
+    src: "{{ item }}"
+    dest: "{{ temp_dir }}/{{ item }}"
+  with_items:
+    - letsencrypt-prod.yaml
+    - letsencrypt-staging.yaml
+
+- name: Creating clusterIssuer
+  k8s:
+    state: present
+    kubeconfig: /etc/rancher/k3s/k3s.yaml
+    src: "{{ temp_dir }}/{{ item }}"
+  with_items:
+    - letsencrypt-prod.yaml
+    - letsencrypt-staging.yaml

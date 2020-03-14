@@ -17,15 +17,16 @@
 #     - mqtt
 #     - nodejs
 
-- hosts: kube-master[0]
+- hosts: kube_master[0]
   any_errors_fatal: true
   roles:
     - kube-dashboard
     - nfs-server
     - helm
     - metallb
+    - cert-manager
 
-- hosts: kube-node
+- hosts: kube_node
   any_errors_fatal: true
   roles:
     - nfs-client

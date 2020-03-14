@@ -1,15 +1,15 @@
 ---
-- hosts: kube-master
+- hosts: kube_master
   any_errors_fatal: true
   roles:
     - upgrade-master
 
-- hosts: kube-gateway
+- hosts: kube_gateway
   any_errors_fatal: true
   roles:
     - upgrade-gateway
 
-- hosts: kube-node
+- hosts: kube_node
   roles:
     - upgrade-worker
 
