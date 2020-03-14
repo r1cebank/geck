@@ -1,0 +1,11 @@
+---
+- name: Copy over helm deploy file
+  template:
+    src: nfs-provisioner.yaml
+    dest: "{{ temp_dir }}/nfs-provisioner.yaml"
+
+- name: Install nfs-provisioner from helm
+  k8s:
+    state: present
+    kubeconfig: /etc/rancher/k3s/k3s.yaml
+    src: "{{ temp_dir }}/nfs-provisioner.yaml"

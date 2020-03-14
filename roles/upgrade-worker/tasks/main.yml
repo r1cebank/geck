@@ -2,10 +2,10 @@
 - register: k3s_master_token
   become: yes
   become_user: root
-  delegate_to: "{{ groups['kube-master'][0] }}"
+  delegate_to: "{{ groups['kube_master'][0] }}"
   shell: "cat /var/lib/rancher/k3s/server/node-token"
 
 - name: install k3s - agent
-  shell: "curl -sfL {{ get_k3s_url }} | INSTALL_K3S_VERSION=\"{{ k3s_version }}\" K3S_URL=https://{{ hostvars[groups['kube-master'][0]].ansible_default_ipv4.address }}:6443 K3S_TOKEN={{ k3s_master_token.stdout }} sh -"
+  shell: "curl -sfL {{ get_k3s_url }} | INSTALL_K3S_VERSION=\"{{ k3s_version }}\" K3S_URL=https://{{ hostvars[groups['kube_master'][0]].ansible_default_ipv4.address }}:6443 K3S_TOKEN={{ k3s_master_token.stdout }} sh -"
   args:
     warn: no

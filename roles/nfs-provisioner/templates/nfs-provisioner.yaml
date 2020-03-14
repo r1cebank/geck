@@ -1,0 +1,11 @@
+apiVersion: helm.cattle.io/v1
+kind: HelmChart
+metadata:
+  name: nfs-client-provisioner
+  namespace: kube-system
+spec:
+  chart: stable/nfs-client-provisioner
+  set:
+    image.repository: {{ nfs_provisioner_image }}
+    nfs.server: "{{ hostvars[groups['kube_master'][0]].ansible_default_ipv4.address }}"
+    nfs.path: "{{ storage_mount }}"

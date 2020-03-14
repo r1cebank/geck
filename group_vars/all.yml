@@ -3,20 +3,18 @@ get_helm_url: https://raw.githubusercontent.com/helm/helm/master/scripts/get-hel
 helm_chart_url: https://kubernetes-charts.storage.googleapis.com
 jetstack_chart_url: https://charts.jetstack.io
 cert_manager_crds_url: https://raw.githubusercontent.com/jetstack/cert-manager/release-0.12/deploy/manifests/00-crds.yaml
+cert_manager_issuer_prod: letsencrypt-prod
+cert_manager_issuer_staging: letsencrypt-staging
+ingress_class: traefik
 metallb_address_range: 192.168.1.120-192.168.1.200
 k3s_version: v1.17.3+k3s1
 kube_dashboard_version: v2.0.0-rc5
-nginx_image: nginx:stable-alpine
 temp_dir: /tmp/k8s_pi
 storage_devide: /dev/sda
 storage_mount: /mnt/ssd
 nfs_mount: /mnt/nfs
-nginx_config_dir: /etc/nginx
-htpasswd_dir: /etc/apache2/.htpasswd
-lets_encrypt_dir: /etc/letsencrypt
+nfs_provisioner_image: quay.io/external_storage/nfs-client-provisioner-arm
 k8s_home: /home/k8s
 nodejs_version: 12.x
 dhparam_size: 256
 letsencrypt_email: siyuangao@gmail.com
-cert_domains:
-  - "*.elica.io"

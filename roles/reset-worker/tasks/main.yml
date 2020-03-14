@@ -11,11 +11,3 @@
 - name: uninstall k3s
   shell: /usr/local/bin/k3s-agent-uninstall.sh
   when: k3s_installed.stat.exists == true
-
-- name: Unmount nfs share
-  become: yes
-  mount:
-    path: "{{ nfs_mount }}"
-    src: "{{ hostvars[groups['kube-master'][0]].ansible_default_ipv4.address }}:{{ storage_mount }}"
-    fstype: nfs
-    state: absent

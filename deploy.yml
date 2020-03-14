@@ -1,5 +1,5 @@
 ---
-# - hosts: kube-master
+# - hosts: kube_master
 #   any_errors_fatal: true
 #   roles:
 #     - dns-updater
@@ -25,8 +25,9 @@
     - helm
     - metallb
     - cert-manager
+    - nfs-provisioner
 
 - hosts: kube_node
   any_errors_fatal: true
   roles:
-    - nfs-client
+    # - nfs-client
