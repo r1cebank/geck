@@ -1,0 +1,15 @@
+apiVersion: helm.cattle.io/v1
+kind: HelmChart
+metadata:
+  name: gitea
+  namespace: gitea
+spec:
+  chart: gitea
+  repo: {{ gitea_chart_url }}
+  set:
+    images.gitea: "{{ gitea_image }}"
+  valuesContent: |-
+    persistence:
+      enabled: true
+      giteaSize: 100Gi
+      storageClass: "nfs-client"

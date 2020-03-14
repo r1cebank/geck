@@ -1,0 +1,22 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    # add an annotation indicating the issuer to use.
+    kubernetes.io/ingress.class: "{{ ingress_class }}"
+    cert-manager.io/cluster-issuer: "{{ ingress_issuer }}"
+  name: gitea-ingress
+  namespace: gitea
+spec:
+  rules:
+  - host: {{ gitea_ingress_domain }}
+    http:
+      paths:
+      - backend:
+          serviceName: gitea-gitea-http
+          servicePort: 3000
+        path: /
+  tls: # < placing a host in the TLS config will indicate a certificate should be created
+  - hosts:
+    - {{ gitea_ingress_domain }}
+    secretName: {{ gitea_ingress_domain }}-tls # < cert-manager will store the created certificate in this secret.

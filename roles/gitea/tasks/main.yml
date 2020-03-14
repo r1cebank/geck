@@ -1,0 +1,24 @@
+---
+- name: Create gitea namespace
+  k8s:
+    name: gitea
+    kubeconfig: /etc/rancher/k3s/k3s.yaml
+    kind: Namespace
+    state: present
+
+- name: Copy over helm deploy file
+  template:
+    src: "{{ item }}"
+    dest: "{{ temp_dir }}/{{ item }}"
+  with_items:
+    - gitea-helm.yaml
+    - gitea-ingress.yaml
+
+- name: Install gitea from helm
+  k8s:
+    state: present
+    kubeconfig: /etc/rancher/k3s/k3s.yaml
+    src: "{{ temp_dir }}/{{ item }}"
+  with_items:
+    - gitea-helm.yaml
+    - gitea-ingress.yaml

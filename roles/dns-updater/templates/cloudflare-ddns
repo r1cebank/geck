@@ -1,3 +1,0 @@
-email={{ cloudflare_email }}
-api_key={{ cloudflare_api_token }}
-domains={{ cloudflare_domain }}

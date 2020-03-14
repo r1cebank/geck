@@ -2,10 +2,12 @@ get_k3s_url: https://get.k3s.io
 get_helm_url: https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
 helm_chart_url: https://kubernetes-charts.storage.googleapis.com
 jetstack_chart_url: https://charts.jetstack.io
+gitea_chart_url: https://r1cebank.github.io/helm-charts
 cert_manager_crds_url: https://raw.githubusercontent.com/jetstack/cert-manager/release-0.12/deploy/manifests/00-crds.yaml
 cert_manager_issuer_prod: letsencrypt-prod
 cert_manager_issuer_staging: letsencrypt-staging
 cloudflare_ddns_image: r1cebank/cloudflare-ddns
+gitea_image: r1cebank/gitea:v1.11.3
 ingress_class: traefik
 metallb_address_range: 192.168.1.120-192.168.1.200
 k3s_version: v1.17.3+k3s1
@@ -20,3 +22,8 @@ nodejs_version: 12.x
 dhparam_size: 256
 letsencrypt_email: siyuangao@gmail.com
 ddns_domains: "*.elica.io,elica.io"
+
+ingress_issuer: letsencrypt-staging
+
+# Ingress Information for services here
+gitea_ingress_domain: git.elica.io
