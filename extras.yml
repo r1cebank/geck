@@ -1,0 +1,9 @@
+---
+- hosts: kube_master[0]
+  any_errors_fatal: true
+  roles:
+    # - external-services
+# - hosts: kube_node
+#   any_errors_fatal: true
+#   roles:
+    # - nfs-client

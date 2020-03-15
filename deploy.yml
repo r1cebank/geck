@@ -28,7 +28,9 @@
     # - nfs-provisioner
     # - cloudflare-ddns
     # - gitea
-    - openvpn
+    # - openvpn
+    # - external-services
+
 # - hosts: kube_node
 #   any_errors_fatal: true
 #   roles:

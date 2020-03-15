@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: external-{{ item.name }}-http
+  namespace: external-services
+spec:
+  ports:
+  - name: {{ item.name }}
+    port: {{ item.service_port }}
+    protocol: {{ item.protocol }}
+    targetPort: {{ item.source_port }}
+  clusterIP: None
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: external-{{ item.name }}-http
+  namespace: external-services
+subsets:
+- addresses:
+  # list all external ips for this service
+  - ip: {{ item.ip }}
+  ports:
+  - name: {{ item.name }}
+    port: {{ item.source_port }}
+    protocol: {{ item.protocol }}

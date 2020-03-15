@@ -61,8 +61,9 @@ Includes services are ones that is installed when you run `bootstramp.yml` I bel
 - Gitea
 - Kube dashboard
 - OpenVPN
+- Proxy for other internal service
 
-## Custom services
+## Extra services
 Custom services are ones that is unique to my use case and might not be needed by you, also onece that might require some user interactiction before it can be used.
 - UnifiPoller
 - InfluxDb
@@ -71,4 +72,3 @@ Custom services are ones that is unique to my use case and might not be needed b
 - Drone (needs user interaction - oauth creds)
 - Docker registry
 - Owncloud
-- Proxy for other internal service

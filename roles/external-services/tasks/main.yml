@@ -1,0 +1,33 @@
+---
+- name: Create external-services namespace
+  k8s:
+    name: external-services
+    kubeconfig: /etc/rancher/k3s/k3s.yaml
+    kind: Namespace
+    state: present
+
+- name: Copy over external service definition file
+  template:
+    src: external-service.yaml
+    dest: "{{ temp_dir }}/external-{{ item.name }}-service.yaml"
+  with_items: "{{ external_services }}"
+
+- name: Copy over external service ingress file
+  template:
+    src: external-ingress.yaml
+    dest: "{{ temp_dir }}/external-{{ item.name }}-ingress.yaml"
+  with_items: "{{ external_services }}"
+
+- name: Apply service definitions
+  k8s:
+    state: present
+    kubeconfig: /etc/rancher/k3s/k3s.yaml
+    src: "{{ temp_dir }}/external-{{ item.name }}-service.yaml"
+  with_items: "{{ external_services }}"
+
+- name: Apply ingress definitions
+  k8s:
+    state: present
+    kubeconfig: /etc/rancher/k3s/k3s.yaml
+    src: "{{ temp_dir }}/external-{{ item.name }}-ingress.yaml"
+  with_items: "{{ external_services }}"
