@@ -1,0 +1,18 @@
+---
+- name: Create openvpn namespace
+  k8s:
+    name: openvpn
+    kubeconfig: /etc/rancher/k3s/k3s.yaml
+    kind: Namespace
+    state: present
+
+- name: Copy over helm deploy file
+  template:
+    src: openvpn.yaml
+    dest: "{{ temp_dir }}/openvpn.yaml"
+
+- name: Install openvpn from helm
+  k8s:
+    state: present
+    kubeconfig: /etc/rancher/k3s/k3s.yaml
+    src: "{{ temp_dir }}/openvpn.yaml"

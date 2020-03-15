@@ -1,0 +1,14 @@
+apiVersion: helm.cattle.io/v1
+kind: HelmChart
+metadata:
+  name: openvpn
+  namespace: openvpn
+spec:
+  chart: openvpn
+  repo: {{ openvpn_chart_url }}
+  set:
+    image.repository: "{{ openvpn_image }}"
+    image.tag: latest
+    persistence.storageClass: nfs-client
+    openvpn.OVPN_K8S_SVC_NETWORK: "{{ (ansible_default_ipv4.address.split('.')[:3]|join('.')) + '.0' }}"
+    openvpn.OVPN_K8S_SVC_SUBNET: 255.255.255.0

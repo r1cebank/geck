@@ -28,7 +28,8 @@
     # - nfs-provisioner
     # - cloudflare-ddns
     # - gitea
-- hosts: kube_node
-  any_errors_fatal: true
-  roles:
+    - openvpn
+# - hosts: kube_node
+#   any_errors_fatal: true
+#   roles:
     # - nfs-client

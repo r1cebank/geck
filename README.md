@@ -52,7 +52,7 @@ ansible-playbook -i inventory/hosts.ini --extra-vars @secrets/secrets.yml bootst
 ```
 
 ## Included services
-
+Includes services are ones that is installed when you run `bootstramp.yml` I believe anyone using the cluster will need it so they are installed by default.
 - K3s with traefik
 - Metallb
 - Cert Manager
@@ -60,9 +60,15 @@ ansible-playbook -i inventory/hosts.ini --extra-vars @secrets/secrets.yml bootst
 - Cloudflare DDNS
 - Gitea
 - Kube dashboard
-
-## Future services
 - OpenVPN
-- Drone
+
+## Custom services
+Custom services are ones that is unique to my use case and might not be needed by you, also onece that might require some user interactiction before it can be used.
+- UnifiPoller
+- InfluxDb
+- Minecraft
+- Chronograph
+- Drone (needs user interaction - oauth creds)
 - Docker registry
 - Owncloud
+- Proxy for other internal service
