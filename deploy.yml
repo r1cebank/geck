@@ -20,15 +20,14 @@
 - hosts: kube_master[0]
   any_errors_fatal: true
   roles:
-    - kube-dashboard
-    - nfs-server
-    - helm
-    - metallb
-    - cert-manager
-    - nfs-provisioner
-    - cloudflare-ddns
-    - gitea
-
+    # - kube-dashboard
+    # - nfs-server
+    # - helm
+    # - metallb
+    # - cert-manager
+    # - nfs-provisioner
+    # - cloudflare-ddns
+    # - gitea
 - hosts: kube_node
   any_errors_fatal: true
   roles:

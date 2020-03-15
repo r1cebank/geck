@@ -50,3 +50,19 @@ The project include scripts from the [ljfranklin/k8s-pi](https://github.com/ljfr
 ```
 ansible-playbook -i inventory/hosts.ini --extra-vars @secrets/secrets.yml bootstrap.yml
 ```
+
+## Included services
+
+- K3s with traefik
+- Metallb
+- Cert Manager
+- NFS Provisioner
+- Cloudflare DDNS
+- Gitea
+- Kube dashboard
+
+## Future services
+- OpenVPN
+- Drone
+- Docker registry
+- Owncloud
