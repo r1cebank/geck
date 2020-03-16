@@ -1,0 +1,13 @@
+apiVersion: helm.cattle.io/v1
+kind: HelmChart
+metadata:
+  name: influxdb
+  namespace: monitoring
+spec:
+  chart: influxdb
+  repo: {{ influxdata_chart_url }}
+  set:
+    image.tag: {{ influxdb_image_tag }}
+    persistence.storageClass: "nfs-client"
+    env[0].name: INFLUXDB_DB
+    env[0].value: {{ influx_db_init_db }}

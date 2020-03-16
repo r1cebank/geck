@@ -2,6 +2,7 @@
 - hosts: kube_master[0]
   any_errors_fatal: true
   roles:
+    - monitoring
     # - external-services
 # - hosts: kube_node
 #   any_errors_fatal: true

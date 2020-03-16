@@ -5,9 +5,15 @@ jetstack_chart_url: https://charts.jetstack.io
 gitea_chart_url: https://r1cebank.github.io/helm-charts
 openvpn_chart_url: http://storage.googleapis.com/kubernetes-charts
 cert_manager_crds_url: https://raw.githubusercontent.com/jetstack/cert-manager/release-0.12/deploy/manifests/00-crds.yaml
+influxdata_chart_url: https://helm.influxdata.com/
 cert_manager_issuer_prod: letsencrypt-prod
 cert_manager_issuer_staging: letsencrypt-staging
 openvpn_image: r1cebank/openvpn
+influxdb_image_tag: 1.7.10
+influx_db_init_db: unifi
+chronograf_image_tag: 1.8.0
+kapacitor_image_tag: 1.5.4
+unifi_poller_image: golift/unifi-poller:latest
 cloudflare_ddns_image: r1cebank/cloudflare-ddns
 gitea_image: r1cebank/gitea:v1.11.3
 ingress_class: traefik
@@ -29,6 +35,9 @@ ingress_issuer: letsencrypt-staging
 
 # Ingress Information for services here
 gitea_ingress_domain: git.elica.io
+
+# Unif specific information here
+unifi_url: https://192.168.1.9:8443
 
 
 # External services to be exposed in kubernetes

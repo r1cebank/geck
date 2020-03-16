@@ -1,0 +1,41 @@
+---
+- name: Create monitoring namespace
+  k8s:
+    name: monitoring
+    kubeconfig: /etc/rancher/k3s/k3s.yaml
+    kind: Namespace
+    state: present
+
+- name: Copy over helm deploy file
+  template:
+    src: "{{ item }}"
+    dest: "{{ temp_dir }}/{{ item }}"
+  with_items:
+    - influxdb-service.yaml
+    - chronograf-service.yaml
+    - kapacitor-service.yaml
+    - unifi-secrets.yaml
+    - unifi-poller.yaml
+
+- name: Import secret
+  k8s:
+    state: present
+    namespace: monitoring
+    kubeconfig: /etc/rancher/k3s/k3s.yaml
+    src: "{{ temp_dir }}/unifi-secrets.yaml"
+
+- name: Remove secret file
+  file:
+    path: "{{ temp_dir }}/unifi-secrets.yaml"
+    state: absent
+
+- name: Install services from helm
+  k8s:
+    state: present
+    kubeconfig: /etc/rancher/k3s/k3s.yaml
+    src: "{{ temp_dir }}/{{ item }}"
+  with_items:
+    - influxdb-service.yaml
+    - chronograf-service.yaml
+    # - kapacitor-service.yaml
+    - unifi-poller.yaml

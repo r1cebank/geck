@@ -1,0 +1,13 @@
+apiVersion: helm.cattle.io/v1
+kind: HelmChart
+metadata:
+  name: chronograf
+  namespace: monitoring
+spec:
+  chart: chronograf
+  repo: {{ influxdata_chart_url }}
+  set:
+    image.repository: chronograf
+    image.tag: {{ chronograf_image_tag }}
+    service.type: LoadBalancer
+    persistence.storageClass: "nfs-client"

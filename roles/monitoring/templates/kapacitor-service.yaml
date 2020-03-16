@@ -1,0 +1,11 @@
+apiVersion: helm.cattle.io/v1
+kind: HelmChart
+metadata:
+  name: kapacitor
+  namespace: monitoring
+spec:
+  chart: kapacitor
+  repo: {{ influxdata_chart_url }}
+  set:
+    image.tag: {{ kapacitor_image_tag }}
+    influxURL: http://influxdb:8086
