@@ -6,7 +6,7 @@
   with_items:
     - drone-secrets.yaml
     - drone-ingress.yaml
-    - drone-service.yaml
+    - drone-helm.yaml
 
 - name: Create drone namespace
   k8s:
@@ -34,5 +34,5 @@
     kubeconfig: /etc/rancher/k3s/k3s.yaml
     src: "{{ temp_dir }}/{{ item }}"
   with_items:
-    - drone-service.yaml
+    - drone-helm.yaml
     - drone-ingress.yaml

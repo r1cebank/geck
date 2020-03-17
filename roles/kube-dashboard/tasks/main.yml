@@ -2,15 +2,15 @@
 - name: Download dashboard yaml
   get_url:
     url: "https://raw.githubusercontent.com/kubernetes/dashboard/{{ kube_dashboard_version }}/aio/deploy/recommended.yaml"
-    dest: "{{ temp_dir }}/dashboard.aio.yaml"
+    dest: "{{ temp_dir }}/dashboard-service.yaml"
 
 - name: Copy service files
   copy:
     src: "{{ item }}"
     dest: "{{ temp_dir }}/{{ item }}"
   with_items:
-    - dashboard.admin-user.yaml
-    - dashboard.admin-user-role.yaml
+    - dashboard-cluster-role-binding.yaml
+    - dashboard-service-account.yaml
 
 - name: Creating deployment
   k8s:
@@ -18,6 +18,6 @@
     kubeconfig: /etc/rancher/k3s/k3s.yaml
     src: "{{ temp_dir }}/{{ item }}"
   with_items:
-    - dashboard.aio.yaml
-    - dashboard.admin-user.yaml
-    - dashboard.admin-user-role.yaml
+    - dashboard-service.yaml
+    - dashboard-service-account.yaml
+    - dashboard-cluster-role-binding.yaml

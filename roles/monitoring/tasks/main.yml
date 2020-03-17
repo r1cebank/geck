@@ -11,12 +11,12 @@
     src: "{{ item }}"
     dest: "{{ temp_dir }}/{{ item }}"
   with_items:
-    - influxdb-service.yaml
-    - telegraf-service.yaml
-    - chronograf-service.yaml
-    - kapacitor-service.yaml
+    - influxdb-helm.yaml
+    - telegraf-helm.yaml
+    - chronograf-helm.yaml
+    - kapacitor-helm.yaml
     - unifi-secrets.yaml
-    - unifi-poller.yaml
+    - unifi-poller-deployment.yaml
 
 - name: Import secret
   k8s:
@@ -36,8 +36,8 @@
     kubeconfig: /etc/rancher/k3s/k3s.yaml
     src: "{{ temp_dir }}/{{ item }}"
   with_items:
-    - influxdb-service.yaml
-    - telegraf-service.yaml
-    - chronograf-service.yaml
-    # - kapacitor-service.yaml
-    - unifi-poller.yaml
+    - influxdb-helm.yaml
+    - telegraf-helm.yaml
+    - chronograf-helm.yaml
+    # - kapacitor-helm.yaml
+    - unifi-poller-deployment.yaml
