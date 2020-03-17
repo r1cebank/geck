@@ -11,7 +11,7 @@ spec:
         spec:
           containers:
           - name: cloudflare-ddns
-            imagePullPolicy: Always
+            imagePullPolicy: IfNotPresent
             image: {{ cloudflare_ddns_image }}
             env:
               - name: DOMAIN_NAMES

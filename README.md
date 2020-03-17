@@ -65,10 +65,12 @@ Includes services are ones that is installed when you run `bootstramp.yml` I bel
 
 ## Extra services
 Custom services are ones that is unique to my use case and might not be needed by you, also onece that might require some user interactiction before it can be used.
-- UnifiPoller
-- InfluxDb
+- UnifiPoller ✅
+- InfluxDb ✅
 - Minecraft
-- Chronograph
-- Drone (needs user interaction - oauth creds)
+- Chronograph ✅
+- Telegraf ✅
+- Drone (needs user interaction - oauth creds) ✅
 - Docker registry
 - Owncloud
+- OpenHab
