@@ -1,9 +1,0 @@
----
-- name: Install Node.js source
-  become: yes
-  shell: "curl -sL https://deb.nodesource.com/setup_{{ nodejs_version }} | bash -"
-
-- name: Install Node.js
-  become: yes
-  apt:
-    name: nodejs

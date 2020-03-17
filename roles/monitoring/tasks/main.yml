@@ -12,6 +12,7 @@
     dest: "{{ temp_dir }}/{{ item }}"
   with_items:
     - influxdb-service.yaml
+    - telegraf-service.yaml
     - chronograf-service.yaml
     - kapacitor-service.yaml
     - unifi-secrets.yaml
@@ -36,6 +37,7 @@
     src: "{{ temp_dir }}/{{ item }}"
   with_items:
     - influxdb-service.yaml
+    - telegraf-service.yaml
     - chronograf-service.yaml
     # - kapacitor-service.yaml
     - unifi-poller.yaml

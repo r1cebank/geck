@@ -1,22 +1,4 @@
 ---
-# - hosts: kube_master
-#   any_errors_fatal: true
-#   roles:
-#     - dns-updater
-#     - letsencrypt
-#     - nginx
-#     - mqtt
-#     - nodejs
-
-# - hosts: kube-gateway
-#   any_errors_fatal: true
-#   roles:
-#     - dns-updater
-#     - letsencrypt
-#     - nginx
-#     - mqtt
-#     - nodejs
-
 - hosts: kube_master[0]
   any_errors_fatal: true
   roles:
@@ -30,8 +12,4 @@
     - gitea
     - openvpn
     - external-services
-
-# - hosts: kube_node
-#   any_errors_fatal: true
-#   roles:
-    # - nfs-client
+    - monitoring

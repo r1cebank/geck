@@ -1,0 +1,11 @@
+apiVersion: helm.cattle.io/v1
+kind: HelmChart
+metadata:
+  name: telegraf-ds
+  namespace: monitoring
+spec:
+  chart: telegraf-ds
+  repo: {{ influxdata_chart_url }}
+  set:
+    image.tag: {{ telegraf_ds_image_tag }}
+    config.outputs.influxdb.url: http://influxdb:8086
