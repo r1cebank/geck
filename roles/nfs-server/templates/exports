@@ -7,4 +7,4 @@
 # /srv/nfs4        gss/krb5i(rw,sync,fsid=0,crossmnt,no_subtree_check)
 # /srv/nfs4/homes  gss/krb5i(rw,sync,no_subtree_check)
 #
-{{ storage_mount }}            192.168.1.0/24(rw,no_root_squash,insecure,async,no_subtree_check,anonuid=1000,anongid=1000)
+{{ storage.location }}           192.168.1.0/24(rw,no_root_squash,insecure,async,no_subtree_check,anonuid=1000,anongid=1000)

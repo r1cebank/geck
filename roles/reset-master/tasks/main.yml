@@ -38,7 +38,22 @@
 - name: Reset mount
   become: yes
   mount:
-    path: "{{ storage_mount }}"
-    src: "{{ storage_devide }}"
+    path: "{{ storage.location }}"
+    src: "{{ storage.device }}"
     fstype: ext4
     state: absent
+  when: storage.storage_type == "device"
+
+- name: Create a ext4 filesystem on storage device
+  become: yes
+  filesystem:
+    fstype: ext4
+    dev: "{{ storage.device }}"
+  when: storage.storage_type == "device" and storage.wipe == true
+
+- name: Remove storage files directory
+  become: yes
+  file:
+    path: "{{ storage.location }}"
+    state: absent
+  when: storage.storage_type == "local" and storage.wipe == true

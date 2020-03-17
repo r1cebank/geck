@@ -8,4 +8,4 @@ spec:
   set:
     image.repository: {{ nfs_provisioner_image }}
     nfs.server: "{{ hostvars[groups['kube_master'][0]].ansible_default_ipv4.address }}"
-    nfs.path: "{{ storage_mount }}"
+    nfs.path: "{{ storage.location }}"

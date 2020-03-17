@@ -8,7 +8,7 @@
 
 - name: Copy over helm deploy file
   template:
-    src: openvpn.yaml
+    src: openvpn-helm.yaml
     dest: "{{ temp_dir }}/openvpn-helm.yaml"
 
 - name: Install openvpn from helm

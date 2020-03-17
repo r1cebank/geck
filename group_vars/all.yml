@@ -35,12 +35,19 @@ metallb_address_range: 192.168.1.120-192.168.1.200
 
 influx_db_init_db: unifi
 
-# devices and folders
-temp_dir: /tmp/k8s_pi
-storage_devide: /dev/sda
-storage_mount: /mnt/ssd
-nfs_mount: /mnt/nfs
-k8s_home: /home/k8s
+temp_dir: /tmp/geck
+
+# storage options
+storage:
+  storage_type: device
+  device: /dev/sda
+  location: /mnt/ssd
+  wipe: true
+
+# storage:
+#   storage_type: local
+#   location: /home/k8s/kube_storage
+#   wipe: true
 
 letsencrypt_email: siyuangao@gmail.com
 ddns_domains: "*.elica.io,elica.io"

@@ -1,7 +1,7 @@
 ---
 - name: Copy over helm deploy file
   template:
-    src: metallb.yaml
+    src: metallb-helm.yaml
     dest: "{{ temp_dir }}/metallb-helm.yaml"
 
 - name: Install metallb from helm

@@ -1,7 +1,7 @@
 ---
 - name: Copy over helm deploy file
   template:
-    src: cert-manager-svc.yaml
+    src: cert-manager-helm.yaml
     dest: "{{ temp_dir }}/cert-manager-helm.yaml"
 
 - name: Install cert-manager crds
