@@ -22,6 +22,7 @@ influxdb_image_tag: 1.7.10
 telegraf_ds_image_tag: 1.13.4
 chronograf_image_tag: 1.8.0
 kapacitor_image_tag: 1.5.4
+drone_image_tag: 1.6.5
 unifi_poller_image: golift/unifi-poller:latest
 cloudflare_ddns_image: r1cebank/cloudflare-ddns
 gitea_image: r1cebank/gitea:v1.11.3
@@ -47,6 +48,7 @@ ingress_issuer: letsencrypt-staging
 
 # Ingress Information for services here
 gitea_ingress_domain: git.elica.io
+drone_ingress_domain: drone.elica.io
 
 # Unif specific information here
 unifi_url: https://192.168.1.9:8443

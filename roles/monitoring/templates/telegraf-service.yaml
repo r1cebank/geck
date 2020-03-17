@@ -8,4 +8,10 @@ spec:
   repo: {{ influxdata_chart_url }}
   set:
     image.tag: {{ telegraf_ds_image_tag }}
-    config.outputs.influxdb.url: http://influxdb:8086
+  valuesContent: |-
+    config:
+      outputs:
+      - influxdb:
+          urls:
+            - "http://influxdb:8086"
+          database: "telegraf"

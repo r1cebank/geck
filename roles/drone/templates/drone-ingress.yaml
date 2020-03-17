@@ -1,0 +1,22 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    # add an annotation indicating the issuer to use.
+    kubernetes.io/ingress.class: "{{ ingress_class }}"
+    cert-manager.io/cluster-issuer: "{{ ingress_issuer }}"
+  name: drone-ingress
+  namespace: drone
+spec:
+  rules:
+  - host: {{ drone_ingress_domain }}
+    http:
+      paths:
+      - backend:
+          serviceName: drone-drone
+          servicePort: 80
+        path: /
+  tls: # < placing a host in the TLS config will indicate a certificate should be created
+  - hosts:
+    - {{ drone_ingress_domain }}
+    secretName: {{ drone_ingress_domain }}-tls # < cert-manager will store the created certificate in this secret.

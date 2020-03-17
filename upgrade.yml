@@ -4,11 +4,6 @@
   roles:
     - upgrade-master
 
-- hosts: kube_gateway
-  any_errors_fatal: true
-  roles:
-    - upgrade-gateway
-
 - hosts: kube_node
   roles:
     - upgrade-worker

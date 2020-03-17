@@ -1,9 +1,13 @@
 ---
 - hosts: kube_master[0]
+  vars_prompt:
+    - name: drone_oauth_client_id
+      prompt: "What is the Gitea app Oauth client id?"
+      private: no
+
+    - name: drone_oauth_client_secret
+      prompt: "What is the Gitea app Oauth client secret?"
   any_errors_fatal: true
   roles:
-    # - external-services
-# - hosts: kube_node
-#   any_errors_fatal: true
-#   roles:
-    # - nfs-client
+    # - drone
+    - monitoring

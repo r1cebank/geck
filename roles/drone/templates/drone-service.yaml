@@ -1,0 +1,17 @@
+apiVersion: helm.cattle.io/v1
+kind: HelmChart
+metadata:
+  name: drone
+  namespace: drone
+spec:
+  chart: stable/drone
+  set:
+    images.server.tag: "{{ drone_image_tag }}"
+    persistence.storageClass: "nfs-client"
+    server.host: "{{ drone_ingress_domain }}"
+    server.protocol: https
+    sourceControl.provider: gitea
+    sourceControl.secret: drone-gitea-secret
+    sourceControl.gitea.clientID: "{{ drone_oauth_client_id }}"
+    sourceControl.gitea.clientSecretKey: client_secret
+    sourceControl.gitea.server: "https://{{ gitea_ingress_domain }}"

@@ -4,12 +4,13 @@
     src: "{{ item }}"
     dest: "{{ temp_dir }}/{{ item }}"
   with_items:
-    - ddns-secrets.yaml
-    - ddns-job.yaml
+    - drone-secrets.yaml
+    - drone-ingress.yaml
+    - drone-service.yaml
 
-- name: Create ddns namespace
+- name: Create drone namespace
   k8s:
-    name: cloudflare-ddns
+    name: drone
     kubeconfig: /etc/rancher/k3s/k3s.yaml
     kind: Namespace
     state: present
@@ -17,18 +18,21 @@
 - name: Import secret
   k8s:
     state: present
-    namespace: cloudflare-ddns
+    namespace: drone
     kubeconfig: /etc/rancher/k3s/k3s.yaml
-    src: "{{ temp_dir }}/ddns-secrets.yaml"
+    src: "{{ temp_dir }}/drone-secrets.yaml"
 
 - name: Remove secret file
   file:
-    path: "{{ temp_dir }}/ddns-secrets.yaml"
+    path: "{{ temp_dir }}/drone-secrets.yaml"
     state: absent
 
-- name: Create cron job
+- name: Install drone from helm
   k8s:
     state: present
-    namespace: cloudflare-ddns
+    namespace: drone
     kubeconfig: /etc/rancher/k3s/k3s.yaml
-    src: "{{ temp_dir }}/ddns-job.yaml"
+    src: "{{ temp_dir }}/{{ item }}"
+  with_items:
+    - drone-service.yaml
+    - drone-ingress.yaml
