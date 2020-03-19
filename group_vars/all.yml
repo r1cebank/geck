@@ -52,6 +52,7 @@ storage:
 letsencrypt_email: siyuangao@gmail.com
 ddns_domains: "*.elica.io,elica.io"
 
+# which issuer to use for ingress
 ingress_issuer: letsencrypt-staging
 
 # Ingress Information for services here
