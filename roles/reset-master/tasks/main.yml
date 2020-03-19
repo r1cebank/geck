@@ -48,6 +48,7 @@
   become: yes
   filesystem:
     fstype: ext4
+    force: true
     dev: "{{ storage.device }}"
   when: storage.storage_type == "device" and storage.wipe == true
 

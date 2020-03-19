@@ -33,8 +33,7 @@ metallb_mode: layer2
 ingress_class: traefik
 metallb_address_range: 192.168.1.120-192.168.1.200
 
-influx_db_init_db: unifi
-
+# file related
 temp_dir: /tmp/geck
 
 # storage options
@@ -49,6 +48,7 @@ storage:
 #   location: /home/k8s/kube_storage
 #   wipe: true
 
+# ddns
 letsencrypt_email: siyuangao@gmail.com
 ddns_domains: "*.elica.io,elica.io"
 
@@ -58,7 +58,7 @@ ingress_issuer: letsencrypt-staging
 gitea_ingress_domain: git.elica.io
 drone_ingress_domain: drone.elica.io
 
-# Unif specific information here
+# Unifi specific information here
 unifi_url: https://192.168.1.9:8443
 unifi_dpi_enabled: true
 
@@ -76,3 +76,8 @@ external_services:
     service_port: 80
     protocol: TCP
     ingress_domain: lab.elica.io
+
+# misc
+influx_db_init_db: unifi
+
+ansible_python_interpreter: "/usr/bin/python"

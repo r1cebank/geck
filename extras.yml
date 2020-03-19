@@ -9,5 +9,5 @@
       prompt: "What is the Gitea app Oauth client secret?"
   any_errors_fatal: true
   roles:
-    # - drone
+    - drone
     - monitoring

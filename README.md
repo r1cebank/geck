@@ -51,6 +51,36 @@ The project include scripts from the [ljfranklin/k8s-pi](https://github.com/ljfr
 ansible-playbook -i inventory/hosts.ini --extra-vars @secrets/secrets.yml bootstrap.yml
 ```
 
+## Config
+You can configure how the script can be run using the `all.yaml` in the `group_vars` folder. There you can configure everything needed to run your cluster.
+
+The config file is grouped into various groups.
+
+- k3s helm related
+    - Configure k3s version and helm install version
+- Chart urls
+    - Various helm chart repo
+- cert-manager
+    - Cert manager settings, (name for cert issuer)
+- Image tags
+    - Image tags for services used, you can update them if you they are outdated
+- network related
+    - Metallb configuration, ip range and mode
+- file related
+    - Temp file folder
+- storage
+    - Storage information, (local or external)
+- ddns
+    - Used for DDNS service
+- ingress
+    - Ingress information, domains
+- unifi
+    - Unifi controller url and configuration
+- external services
+    - External services want to be exposed to the cluster
+- misc
+    - Anything else
+
 ## Included services
 Includes services are ones that is installed when you run `bootstramp.yml` I believe anyone using the cluster will need it so they are installed by default.
 - K3s with traefik
