@@ -15,6 +15,19 @@ As single board computers like Raspberry Pi or the LattePanda get more and more 
 The Cluster will be provisioned to use Kubernetes with the Traefik ingress controller and MetalLB as baremetal loadbalancer. Cert-manager will also be deployed to the cluster so later SSL certificates can be provisioned automatically. NFS-provisioner is deployed to automatically provision PV as we spin more services.
 
 ## Networking
+I had a lot of confusion on how this can work in a homelab environment. Since we do not have access to Load Balancers and its hard to tell which type of service we want to use. Following some investigation, I finally ironed out a plan to make this work in homelab. Some lessons I have learnt:
+
+- Never expose using NodePort, just no.
+- ClusterIP is useful but you are not gonna proxy it everytime yo use it
+- LoadBalancer is good but you need to have something that assign LoadBalancer IP
+- Proxying to a gateway and then use nginx to route traffic require too much manual configuration (I even made a API server that update the configs, still too complex)
+
+### Current Solution
+
+Using MetalLB running in layer2 mode, I have given a IP range that it can assign and those IP are blocked from DHCP in my router. When the ingress controller is created first, it will request for LoadBalancer IP and MetalLB will assign a IP for the ingress controller (this is the IP you setup your router to port forward, it will not change). Then when you create services that is going to be public accessible, just create server as ClusterIP and create an Ingress pointing to that. Because of we also added cert-manager. The SSL certificate will be automatically provisioned and assigned to that Ingress.
+
+No More Manual Config!
+
 ![Geck Network](geck_network.png)
 
 ## Playbooks
