@@ -14,6 +14,9 @@ As single board computers like Raspberry Pi or the LattePanda get more and more 
 ## The cluster
 The Cluster will be provisioned to use Kubernetes with the Traefik ingress controller and MetalLB as baremetal loadbalancer. Cert-manager will also be deployed to the cluster so later SSL certificates can be provisioned automatically. NFS-provisioner is deployed to automatically provision PV as we spin more services.
 
+## Networking
+![Geck Network](geck_network.png)
+
 ## Playbooks
 
 __bootstrap.yml__
@@ -93,14 +96,3 @@ Includes services are ones that is installed when you run `bootstramp.yml` I bel
 - OpenVPN
 - Proxy for other internal service
 
-## Extra services
-Custom services are ones that is unique to my use case and might not be needed by you, also onece that might require some user interactiction before it can be used.
-- UnifiPoller ✅
-- InfluxDb ✅
-- Minecraft
-- Chronograph ✅
-- Telegraf ✅
-- Drone (needs user interaction - oauth creds) ✅
-- Docker registry
-- Owncloud
-- OpenHab
