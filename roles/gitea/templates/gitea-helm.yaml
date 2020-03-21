@@ -8,8 +8,9 @@ spec:
   repo: {{ gitea_chart_url }}
   set:
     images.gitea: "{{ gitea_image }}"
-  valuesContent: |-
-    persistence:
-      enabled: true
-      giteaSize: 100Gi
-      storageClass: "nfs-client"
+    service.http.externalHost: "{{ gitea_ingress_domain }}"
+    service.ssh.externalHost: "{{ gitea_ingress_domain }}"
+    config.openidSignin: "false"
+    persistence.enabled: "true"
+    persistence.giteaSize: "100Gi"
+    persistence.storageClass: "nfs-client"
