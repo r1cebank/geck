@@ -24,12 +24,10 @@
     kubeconfig: /etc/rancher/k3s/k3s.yaml
     src: "{{ temp_dir }}/traefik-helm.yaml"
 
-- name: (Experimental) Enable traefik dashboard
-  become: yes
-  lineinfile:
-    path: "{{ exp_traefik_manifest_file }}"
-    line: "    dashboard.enabled: \"true\""
-  when: exp_traefik_dashboard == true
+# There isn't a way now to wait for service to be deployed, using a hardcoded wait for now
+- name: Wait for traefik to finish deploy
+  wait_for:
+    timeout: 120
 
 - name: retrieve kubeconfig
   fetch:

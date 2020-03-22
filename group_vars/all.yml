@@ -25,6 +25,9 @@ nfs_provisioner_image: quay.io/external_storage/nfs-client-provisioner-arm
 metallb_mode: layer2
 ingress_class: traefik
 metallb_address_range: 192.168.1.120-192.168.1.200
+traefik_tls_min_version: VersionTLS12
+traefik_dashboard_enabled: true
+traefik_force_ssl: true
 
 # file related
 temp_dir: /tmp/geck
