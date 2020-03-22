@@ -5,13 +5,31 @@
     extra_args: --user
 
 - name: install k3s
-  shell:  "curl -sfL {{ get_k3s_url }} | INSTALL_K3S_EXEC=\" --no-deploy servicelb\" K3S_KUBECONFIG_MODE=\"644\" INSTALL_K3S_VERSION=\"{{ k3s_version }}\" sh -"
+  shell:  "curl -sfL {{ get_k3s_url }} | INSTALL_K3S_EXEC=\" --no-deploy traefik --no-deploy servicelb\" K3S_KUBECONFIG_MODE=\"644\" INSTALL_K3S_VERSION=\"{{ k3s_version }}\" sh -"
   args:
     warn: no
 
 - name: Wait for k3s to finish loading
   wait_for:
     path: /etc/rancher/k3s/k3s.yaml
+
+- name: Copy over helm deploy file
+  template:
+    src: traefik-helm.yaml
+    dest: "{{ temp_dir }}/traefik-helm.yaml"
+
+- name: Install traefik from helm
+  k8s:
+    state: present
+    kubeconfig: /etc/rancher/k3s/k3s.yaml
+    src: "{{ temp_dir }}/traefik-helm.yaml"
+
+- name: (Experimental) Enable traefik dashboard
+  become: yes
+  lineinfile:
+    path: "{{ exp_traefik_manifest_file }}"
+    line: "    dashboard.enabled: \"true\""
+  when: exp_traefik_dashboard == true
 
 - name: retrieve kubeconfig
   fetch:

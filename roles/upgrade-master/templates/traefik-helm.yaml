@@ -1,0 +1,16 @@
+apiVersion: helm.cattle.io/v1
+kind: HelmChart
+metadata:
+  name: traefik
+  namespace: kube-system
+spec:
+  chart: traefik
+  set:
+    rbac.enabled: "true"
+    ssl.enabled: "true"
+    ssl.sniStrict: "true"
+    ssl.enforced: "true"
+    ssl.tlsMinVersion: "VersionTLS12"
+    metrics.prometheus.enabled: "true"
+    kubernetes.ingressEndpoint.useDefaultPublishedService: "true"
+    dashboard.enabled: "true"
