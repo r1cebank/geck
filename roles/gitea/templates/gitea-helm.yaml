@@ -7,10 +7,16 @@ spec:
   chart: gitea
   repo: {{ gitea_chart_url }}
   set:
+    app.theme: "arc-green"
     images.gitea: "{{ gitea_image }}"
+    ingress.tls: "true"
     service.http.externalHost: "{{ gitea_ingress_domain }}"
     service.ssh.externalHost: "{{ gitea_ingress_domain }}"
     config.openidSignin: "false"
     persistence.enabled: "true"
     persistence.giteaSize: "100Gi"
     persistence.storageClass: "nfs-client"
+    config.disableRegistration: "true"
+  valuesContent: |-
+    app:
+      title: "Hachune-CX: Git for all"
