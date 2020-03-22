@@ -16,6 +16,7 @@ spec:
     persistence.enabled: "true"
     persistence.giteaSize: "100Gi"
     persistence.storageClass: "nfs-client"
+    config.requireSignin: "true"
     config.disableRegistration: "true"
   valuesContent: |-
     app:
