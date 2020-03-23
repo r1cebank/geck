@@ -9,6 +9,8 @@ spec:
   set:
     image.repository: "{{ openvpn_image }}"
     image.tag: latest
+    service.type: LoadBalancer
+    service.loadBalancerIP: "{{ openvpn_loadbalancer_ip }}"
     persistence.storageClass: nfs-client
     openvpn.OVPN_K8S_SVC_NETWORK: "{{ (ansible_default_ipv4.address.split('.')[:3]|join('.')) + '.0' }}"
     openvpn.OVPN_K8S_SVC_SUBNET: 255.255.255.0

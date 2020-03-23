@@ -6,6 +6,7 @@ metadata:
 spec:
   chart: stable/traefik
   set:
+    loadBalancerIP: "{{ ingress_loadbalancer_ip }}"
     rbac.enabled: "true"
     ssl.enabled: "true"
     sniStrict: "true"

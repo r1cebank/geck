@@ -10,6 +10,8 @@ spec:
     app.theme: "arc-green"
     images.gitea: "{{ gitea_image }}"
     ingress.tls: "true"
+    service.ssh.serviceType: LoadBalancer
+    service.ssh.loadBalancerIP: "{{ gitea_ssh_loadbalancer_ip }}"
     service.http.externalHost: "{{ gitea_ingress_domain }}"
     service.ssh.externalHost: "{{ gitea_ingress_domain }}"
     config.openidSignin: "false"
