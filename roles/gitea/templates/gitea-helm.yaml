@@ -5,7 +5,7 @@ metadata:
   namespace: gitea
 spec:
   chart: gitea
-  repo: {{ gitea_chart_url }}
+  repo: {{ personal_chart_url }}
   set:
     app.theme: "arc-green"
     images.gitea: "{{ gitea_image }}"
