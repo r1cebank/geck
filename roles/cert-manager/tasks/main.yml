@@ -18,8 +18,8 @@
     src: "{{ item }}"
     dest: "{{ temp_dir }}/{{ item }}"
   with_items:
-    - letsencrypt-prod-clusterissuer.yaml
-    - letsencrypt-staging-clusterissuer.yaml
+    - prod-clusterissuer.yaml
+    - staging-clusterissuer.yaml
 
 - name: Creating clusterIssuer
   k8s:
@@ -27,5 +27,5 @@
     kubeconfig: /etc/rancher/k3s/k3s.yaml
     src: "{{ temp_dir }}/{{ item }}"
   with_items:
-    - letsencrypt-prod-clusterissuer.yaml
-    - letsencrypt-staging-clusterissuer.yaml
+    - prod-clusterissuer.yaml
+    - staging-clusterissuer.yaml
