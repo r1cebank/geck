@@ -12,8 +12,8 @@ openvpn_chart_url: http://storage.googleapis.com/kubernetes-charts
 
 # cert-manager
 cert_manager_crds_url: https://raw.githubusercontent.com/jetstack/cert-manager/release-0.12/deploy/manifests/00-crds.yaml
-cert_manager_issuer_prod: letsencrypt-prod
-cert_manager_issuer_staging: letsencrypt-staging
+cert_manager_issuer_prod: certissuer-prod
+cert_manager_issuer_staging: certissuer-staging
 
 # Image and image tags
 openvpn_image: r1cebank/openvpn
@@ -55,7 +55,7 @@ acme_prod_url: https://acme-v02.api.letsencrypt.org/directory
 ddns_domains: "*.elica.io,elica.io"
 
 # which issuer to use for ingress
-ingress_issuer: letsencrypt-staging
+ingress_issuer: certissuer-staging
 
 # Ingress Information for services here
 gitea_ingress_domain: git.elica.io
