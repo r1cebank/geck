@@ -9,14 +9,11 @@ helm_chart_url: https://kubernetes-charts.storage.googleapis.com
 jetstack_chart_url: https://charts.jetstack.io
 personal_chart_url: https://r1cebank.github.io/helm-charts
 openvpn_chart_url: http://storage.googleapis.com/kubernetes-charts
-
-# cert-manager
-cert_manager_crds_url: https://raw.githubusercontent.com/jetstack/cert-manager/release-0.12/deploy/manifests/00-crds.yaml
-cert_manager_issuer_prod: certissuer-prod
-cert_manager_issuer_staging: certissuer-staging
+traefik_chart: https://containous.github.io/traefik-helm-chart
 
 # Image and image tags
 openvpn_image: r1cebank/openvpn
+traefik_forward_auth_image: r1cebank/traefik-forward-auth:latest
 cloudflare_ddns_image: r1cebank/cloudflare-ddns
 gitea_image: r1cebank/gitea:v1.11.3
 nfs_provisioner_image: quay.io/external_storage/nfs-client-provisioner-arm
@@ -31,6 +28,11 @@ metallb_address_range: 192.168.1.120-192.168.1.200
 traefik_tls_min_version: VersionTLS12
 traefik_dashboard_enabled: true
 traefik_force_ssl: true
+
+# oauth
+oauth_cookie_domain: elica.io
+oauth_auth_domain: auth.elica.io
+oauth_email_whitelist: siyuangao@gmail.com
 
 # file related
 temp_dir: /tmp/geck
@@ -54,8 +56,8 @@ acme_prod_url: https://acme-v02.api.letsencrypt.org/directory
 # ddns
 ddns_domains: "*.elica.io,elica.io"
 
-# which issuer to use for ingress
-ingress_issuer: certissuer-staging
+# which issuer to use for ingress (staging or prod)
+ingress_issuer: staging
 
 # Ingress Information for services here
 gitea_ingress_domain: git.elica.io

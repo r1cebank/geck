@@ -1,0 +1,37 @@
+---
+- name: Copy over traefik deploy file
+  template:
+    src: "{{ item }}"
+    dest: "{{ temp_dir }}/{{ item }}"
+  with_items:
+    - traefik-rbac.yaml
+    - traefik-deployment.yaml
+    - traefik-service.yaml
+    - traefik-secrets.yaml
+    - traefik-ingress.yaml
+    - traefik-sso.yaml
+
+- name: Import secret
+  k8s:
+    state: present
+    namespace: kube-system
+    kubeconfig: /etc/rancher/k3s/k3s.yaml
+    src: "{{ temp_dir }}/traefik-secrets.yaml"
+
+- name: Remove secret file
+  file:
+    path: "{{ temp_dir }}/traefik-secrets.yaml"
+    state: absent
+
+- name: Install traefik from helm
+  k8s:
+    state: present
+    namespace: kube-system
+    kubeconfig: /etc/rancher/k3s/k3s.yaml
+    src: "{{ temp_dir }}/{{ item }}"
+  with_items:
+    - traefik-rbac.yaml
+    - traefik-deployment.yaml
+    - traefik-service.yaml
+    - traefik-ingress.yaml
+    - traefik-sso.yaml

@@ -1,0 +1,25 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: http-to-https
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: HostRegexp(`{any:.+}`)
+      kind: Rule
+      services:
+        - name: traefik #any service in the namespace
+          port: 80
+      middlewares:
+        - name: redirect-https
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: redirect-https
+spec:
+  redirectScheme:
+    scheme: https
+    permanent: "true"
+    port: 443

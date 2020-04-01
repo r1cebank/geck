@@ -1,0 +1,95 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: traefik-sso
+  labels:
+    app: traefik-sso
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: traefik-sso
+  template:
+    metadata:
+      labels:
+        app: traefik-sso
+    spec:
+      containers:
+      - name: traefik-sso
+        image: {{ traefik_forward_auth_image }}
+        imagePullPolicy: Always
+        env:
+          - name: PROVIDERS_GOOGLE_CLIENT_ID
+            valueFrom:
+              secretKeyRef:
+                name: traefik-secret
+                key: google_oauth_clientid
+          - name: PROVIDERS_GOOGLE_CLIENT_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: traefik-secret
+                key: google_oauth_secret
+          - name: SECRET
+            valueFrom:
+              secretKeyRef:
+                name: traefik-secret
+                key: oauth_secret
+          - name: COOKIE_DOMAIN
+            value: {{ oauth_cookie_domain }}
+          - name: AUTH_HOST
+            value: {{ oauth_auth_domain }}
+          - name: INSECURE_COOKIE
+            value: "false"
+          # - name: URL_PATH
+          #   value: /_oauth
+          - name: WHITELIST
+            value: {{ oauth_email_whitelist }}
+          - name: LOG_LEVEL
+            value: debug
+        ports:
+          - containerPort: 4181
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: traefik-sso
+spec:
+  selector:
+    app: traefik-sso
+  ports:
+    - protocol: TCP
+      port: 4181
+      targetPort: 4181
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: traefik-sso
+spec:
+  forwardAuth:
+    address: http://traefik-sso:4181
+    authResponseHeaders:
+      - "X-Forwarded-User"
+    trustForwardHeader: true
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: traefik-sso
+spec:
+  entryPoints:
+    - web
+    - websecure
+  routes:
+    - match: Host(`{{ oauth_auth_domain }}`)
+      kind: Rule
+      services:
+      - name: traefik-sso
+        port: 4181
+      middlewares:
+        - name: kube-system-traefik-sso@kubernetescrd
+  tls:
+    certResolver: {{ ingress_issuer }}
+    domains:
+      - main: "*.elica.io"
+    options: {}

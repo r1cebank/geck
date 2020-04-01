@@ -13,22 +13,6 @@
   wait_for:
     path: /etc/rancher/k3s/k3s.yaml
 
-- name: Copy over helm deploy file
-  template:
-    src: traefik-helm.yaml
-    dest: "{{ temp_dir }}/traefik-helm.yaml"
-
-- name: Install traefik from helm
-  k8s:
-    state: present
-    kubeconfig: /etc/rancher/k3s/k3s.yaml
-    src: "{{ temp_dir }}/traefik-helm.yaml"
-
-# # There isn't a way now to wait for service to be deployed, using a hardcoded wait for now
-# - name: Wait for traefik to finish deploy
-#   wait_for:
-#     timeout: 120
-
 - name: retrieve kubeconfig
   fetch:
     src: /etc/rancher/k3s/k3s.yaml

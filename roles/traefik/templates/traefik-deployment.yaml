@@ -1,0 +1,62 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: traefik-ingress-controller
+
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: traefik
+  labels:
+    app: traefik
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: traefik
+  template:
+    metadata:
+      labels:
+        app: traefik
+    spec:
+      serviceAccountName: traefik-ingress-controller
+      containers:
+        - name: traefik
+          image: traefik:v2.2
+          env:
+          - name: CF_API_EMAIL
+            valueFrom:
+              secretKeyRef:
+                name: traefik-secret
+                key: cloudflare_email
+          - name: CF_API_KEY
+            valueFrom:
+              secretKeyRef:
+                name: traefik-secret
+                key: cloudflare_token
+          args:
+            - "--entryPoints.web.address=:80"
+            - "--entryPoints.websecure.address=:443"
+            - "--api.insecure=true"
+            - "--api.dashboard=true"
+            - "--log.level=DEBUG"
+            - "--providers.kubernetescrd"
+            - "--certificatesResolvers.staging.acme.email={{ acme_email }}"
+            - "--certificatesResolvers.staging.acme.storage=staging.json"
+            - "--certificatesResolvers.staging.acme.httpChallenge.entryPoint=web"
+            - "--certificatesResolvers.staging.acme.caServer={{ acme_staging_url }}"
+            - "--certificatesResolvers.staging.acme.dnsChallenge.provider=cloudflare"
+            - "--certificatesResolvers.prod.acme.email={{ acme_email }}"
+            - "--certificatesResolvers.prod.acme.storage=prod.json"
+            - "--certificatesResolvers.prod.acme.httpChallenge.entryPoint=web"
+            - "--certificatesResolvers.prod.acme.caServer={{ acme_prod_url }}"
+            - "--certificatesResolvers.prod.acme.dnsChallenge.provider=cloudflare"
+          ports:
+            - name: web
+              containerPort: 80
+            - name: websecure
+              containerPort: 443
+            - name: admin
+              containerPort: 8080
