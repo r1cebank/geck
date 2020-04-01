@@ -2,7 +2,6 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: traefik-ingress-controller
-
 ---
 kind: Deployment
 apiVersion: apps/v1
@@ -44,12 +43,12 @@ spec:
             - "--log.level=DEBUG"
             - "--providers.kubernetescrd"
             - "--certificatesResolvers.staging.acme.email={{ acme_email }}"
-            - "--certificatesResolvers.staging.acme.storage=staging.json"
+            - "--certificatesResolvers.staging.acme.storage=/data/staging.json"
             - "--certificatesResolvers.staging.acme.httpChallenge.entryPoint=web"
             - "--certificatesResolvers.staging.acme.caServer={{ acme_staging_url }}"
             - "--certificatesResolvers.staging.acme.dnsChallenge.provider=cloudflare"
             - "--certificatesResolvers.prod.acme.email={{ acme_email }}"
-            - "--certificatesResolvers.prod.acme.storage=prod.json"
+            - "--certificatesResolvers.prod.acme.storage=/data/prod.json"
             - "--certificatesResolvers.prod.acme.httpChallenge.entryPoint=web"
             - "--certificatesResolvers.prod.acme.caServer={{ acme_prod_url }}"
             - "--certificatesResolvers.prod.acme.dnsChallenge.provider=cloudflare"
@@ -60,3 +59,24 @@ spec:
               containerPort: 443
             - name: admin
               containerPort: 8080
+          volumeMounts:
+          - name: traefik-storage
+            mountPath: /data
+      volumes:
+        - name: traefik-storage
+          persistentVolumeClaim:
+            claimName: traefik-pv-claim
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: traefik-pv-claim
+  labels:
+    app: traefik
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: "nfs-client"
+  resources:
+    requests:
+      storage: 128Mi

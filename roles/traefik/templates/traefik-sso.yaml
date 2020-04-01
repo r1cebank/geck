@@ -88,5 +88,5 @@ spec:
   tls:
     certResolver: {{ ingress_issuer }}
     domains:
-      - main: "*.elica.io"
+      - main: "{{ oauth_auth_domain }}"
     options: {}

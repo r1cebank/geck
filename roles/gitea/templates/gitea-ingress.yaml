@@ -17,5 +17,5 @@ spec:
   tls:
     certResolver: {{ ingress_issuer }}
     domains:
-      - main: "*.elica.io"
+      - main: "{{ gitea_ingress_domain }}"
     options: {}
