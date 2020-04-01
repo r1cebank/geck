@@ -99,7 +99,8 @@ The config file is grouped into various groups.
 
 ## Included services
 Includes services are ones that is installed when you run `bootstramp.yml` I believe anyone using the cluster will need it so they are installed by default.
-- K3s with traefik
+- K3s with traefik v2
+- Traefik forward auth with Google SSO
 - Metallb
 - Cert Manager
 - NFS Provisioner
@@ -109,3 +110,12 @@ Includes services are ones that is installed when you run `bootstramp.yml` I bel
 - OpenVPN
 - Proxy for other internal service
 
+
+## Traefik Dashboard
+To view the traefik dashboard, simply run the following command:
+```
+kubectl port-forward service/traefik 8001:8080 -n kube-system
+```
+then navigate to [http://localhost:8001](http://localhost:8001) to see the dashboard
+
+![Traefik Dashboard](traefik.png)
