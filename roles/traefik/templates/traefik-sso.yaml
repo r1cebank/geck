@@ -40,8 +40,6 @@ spec:
             value: {{ oauth_auth_domain }}
           - name: INSECURE_COOKIE
             value: "false"
-          # - name: URL_PATH
-          #   value: /_oauth
           - name: WHITELIST
             value: {{ oauth_email_whitelist }}
           - name: LOG_LEVEL
@@ -78,7 +76,6 @@ metadata:
   name: traefik-sso
 spec:
   entryPoints:
-    - web
     - websecure
   routes:
     - match: Host(`{{ oauth_auth_domain }}`)

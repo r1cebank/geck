@@ -4,6 +4,7 @@ metadata:
   name: traefik
 spec:
   type: LoadBalancer
+  loadBalancerIP: {{ ingress_loadbalancer_ip }}
   ports:
     - protocol: TCP
       name: web

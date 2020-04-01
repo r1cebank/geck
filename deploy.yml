@@ -2,14 +2,13 @@
 - hosts: kube_master[0]
   any_errors_fatal: true
   roles:
-    - traefik
-    # - kube-dashboard
-    # - nfs-server
-    # - helm
     - metallb
-    # - cert-manager
-    # - nfs-provisioner
-    # - cloudflare-ddns
-    # - gitea
-    # - openvpn
-    # - external-services
+    - traefik
+    - kube-dashboard
+    - nfs-server
+    - helm
+    - nfs-provisioner
+    - cloudflare-ddns
+    - gitea
+    - openvpn
+    - external-services

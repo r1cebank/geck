@@ -1,22 +1,21 @@
-apiVersion: extensions/v1beta1
-kind: Ingress
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
 metadata:
-  annotations:
-    # add an annotation indicating the issuer to use.
-    kubernetes.io/ingress.class: "{{ ingress_class }}"
-    cert-manager.io/cluster-issuer: "{{ ingress_issuer }}"
   name: gitea-ingress
   namespace: gitea
 spec:
-  rules:
-  - host: {{ gitea_ingress_domain }}
-    http:
-      paths:
-      - backend:
-          serviceName: gitea-gitea-http
-          servicePort: 3000
-        path: /
-  tls: # < placing a host in the TLS config will indicate a certificate should be created
-  - hosts:
-    - {{ gitea_ingress_domain }}
-    secretName: {{ gitea_ingress_domain }}-tls # < cert-manager will store the created certificate in this secret.
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`{{ gitea_ingress_domain }}`)
+      kind: Rule
+      services:
+      - name: gitea-gitea-http
+        port: 3000
+      middlewares:
+        - name: kube-system-traefik-sso@kubernetescrd
+  tls:
+    certResolver: {{ ingress_issuer }}
+    domains:
+      - main: "*.elica.io"
+    options: {}
