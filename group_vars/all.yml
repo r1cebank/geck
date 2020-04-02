@@ -31,7 +31,7 @@ traefik_force_ssl: true
 # oauth
 oauth_cookie_domain: elica.io
 oauth_auth_domain: auth.elica.io
-oauth_email_whitelist: siyuangao+okta@gmail.com
+oauth_email_whitelist: siyuangao+okta@gmail.com,siyuangao@gmail.com
 sso_provider: oidc #oidc is okta
 odic_url: https://dev-841899.okta.com
 
