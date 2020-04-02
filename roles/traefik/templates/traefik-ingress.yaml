@@ -9,7 +9,7 @@ spec:
     - match: HostRegexp(`{any:.+}`)
       kind: Rule
       services:
-        - name: traefik #any service in the namespace
+        - name: traefik
           port: 80
       middlewares:
         - name: redirect-https
