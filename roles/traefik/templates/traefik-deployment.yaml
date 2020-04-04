@@ -23,7 +23,7 @@ spec:
       serviceAccountName: traefik-ingress-controller
       containers:
         - name: traefik
-          image: traefik:v2.2
+          image: {{ traefik_image }}
           env:
           - name: CF_API_EMAIL
             valueFrom:

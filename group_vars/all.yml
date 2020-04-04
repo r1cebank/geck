@@ -13,7 +13,8 @@ traefik_chart: https://containous.github.io/traefik-helm-chart
 
 # Image and image tags
 openvpn_image: r1cebank/openvpn
-traefik_forward_auth_image: r1cebank/traefik-forward-auth:latest
+traefik_image: traefik:v2.2
+traefik_forward_auth_image: r1cebank/traefik-forward-auth:multiarch
 cloudflare_ddns_image: r1cebank/cloudflare-ddns
 gitea_image: r1cebank/gitea:v1.11.3
 nfs_provisioner_image: quay.io/external_storage/nfs-client-provisioner-arm
