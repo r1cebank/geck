@@ -14,4 +14,8 @@ spec:
         port: {{ item.service_port }}
       middlewares:
         - name: kube-system-traefik-sso@kubernetescrd
-  tls: {}
+  tls:
+    certResolver: {{ cert_issuer }}
+    domains:
+      - main: "{{ item.ingress_domain }}"
+    options: {}

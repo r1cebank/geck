@@ -47,7 +47,7 @@ spec:
           - name: DEFAULT_PROVIDER
             value: {{ sso_provider }}
           - name: PROVIDERS_OIDC_ISSUER_URL
-            value: {{ odic_url }}
+            value: {{ odic_issuer_url }}
           - name: COOKIE_DOMAIN
             value: {{ oauth_cookie_domain }}
           - name: AUTH_HOST
@@ -99,4 +99,8 @@ spec:
         port: 4181
       middlewares:
         - name: kube-system-traefik-sso@kubernetescrd
-  tls: {}
+  tls:
+    certResolver: {{ cert_issuer }}
+    domains:
+      - main: "{{ oauth_auth_domain }}"
+    options: {}

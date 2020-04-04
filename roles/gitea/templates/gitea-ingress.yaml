@@ -17,5 +17,5 @@ spec:
   tls:
     certResolver: {{ cert_issuer }}
     domains:
-      - main: "{{ wildcard_cert_domain }}"
+      - main: "{{ gitea_ingress_domain }}"
     options: {}
