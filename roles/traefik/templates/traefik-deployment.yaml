@@ -53,7 +53,7 @@ spec:
             - "--certificatesResolvers.prod.acme.caServer={{ acme_prod_url }}"
             - "--certificatesResolvers.prod.acme.dnsChallenge.provider=cloudflare"
             - "--certificatesResolvers.staging.acme.dnsChallenge.delayBeforeCheck=0"
-            - "--entrypoints.websecure.http.tls.certResolver={{ ingress_issuer }}"
+            - "--entrypoints.websecure.http.tls.certResolver={{ cert_issuer }}"
           ports:
             - name: web
               containerPort: 80

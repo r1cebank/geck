@@ -15,7 +15,7 @@ spec:
       middlewares:
         - name: kube-system-traefik-sso@kubernetescrd
   tls:
-    certResolver: {{ ingress_issuer }}
+    certResolver: {{ cert_issuer }}
     domains:
       - main: "{{ wildcard_cert_domain }}"
     options: {}
