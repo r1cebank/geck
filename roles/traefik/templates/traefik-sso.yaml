@@ -102,5 +102,5 @@ spec:
   tls:
     certResolver: {{ cert_issuer }}
     domains:
-      - main: "{{ oauth_auth_domain }}"
+      - main: "*.elica.io"
     options: {}

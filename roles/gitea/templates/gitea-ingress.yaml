@@ -14,8 +14,4 @@ spec:
         port: 3000
       middlewares:
         - name: kube-system-traefik-sso@kubernetescrd
-  tls:
-    certResolver: {{ cert_issuer }}
-    domains:
-      - main: "{{ gitea_ingress_domain }}"
-    options: {}
+  tls: {}

@@ -1,4 +1,29 @@
 apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: security
+spec:
+  headers:
+    frameDeny: true
+    sslRedirect: true
+    browserXssFilter: true
+    contentTypeNosniff: true
+    #HSTS
+    stsIncludeSubdomains: true
+    stsPreload: true
+    stsSeconds: 31536000
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: redirect-https
+spec:
+  redirectScheme:
+    scheme: https
+    permanent: "true"
+    port: 443
+---
+apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
   name: http-to-https
@@ -13,28 +38,21 @@ spec:
           port: 80
       middlewares:
         - name: redirect-https
+        - name: security
 ---
 apiVersion: traefik.containo.us/v1alpha1
-kind: Middleware
+kind: IngressRoute
 metadata:
-  name: redirect-https
+  name: traefik-dashboard
 spec:
-  redirectScheme:
-    scheme: https
-    permanent: "true"
-    port: 443
----
-apiVersion: traefik.containo.us/v1alpha1
-kind: Middleware
-metadata:
-  name: security
-spec:
-  headers:
-    frameDeny: true
-    sslRedirect: true
-    browserXssFilter: true
-    contentTypeNosniff: true
-    #HSTS
-    stsIncludeSubdomains: true
-    stsPreload: true
-    stsSeconds: 31536000
+  entryPoints:
+    - websecure
+  routes:
+  - match: Host(`traefik.elica.io`)
+    kind: Rule
+    services:
+    - name: api@internal
+      kind: TraefikService
+    middlewares:
+      - name: traefik-sso
+  tls: {}

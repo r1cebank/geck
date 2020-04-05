@@ -38,7 +38,6 @@ spec:
           args:
             - "--entryPoints.web.address=:80"
             - "--entryPoints.websecure.address=:443"
-            - "--api.insecure=true"
             - "--api.dashboard=true"
             - "--providers.kubernetescrd"
             - "--certificatesResolvers.staging.acme.email={{ acme_email }}"
