@@ -13,5 +13,5 @@ spec:
       - name: gitea-gitea-http
         port: 3000
       middlewares:
-        - name: kube-system-traefik-sso@kubernetescrd
+        - name: kube-system-security@kubernetescrd
   tls: {}
