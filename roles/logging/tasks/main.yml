@@ -1,0 +1,32 @@
+---
+- name: Copy over deploy file
+  template:
+    src: "{{ item }}"
+    dest: "{{ temp_dir }}/{{ item }}"
+  with_items:
+    - elasticsearch-service.yaml
+    - elasticsearch-statefulset.yaml
+    - kibana-service.yaml
+    - fluentd-rbac.yaml
+    - fluentd-daemonset.yaml
+
+
+- name: Create kube-logging namespace
+  k8s:
+    name: kube-logging
+    kubeconfig: /etc/rancher/k3s/k3s.yaml
+    kind: Namespace
+    state: present
+
+- name: Apply deployment file
+  k8s:
+    state: present
+    namespace: kube-logging
+    kubeconfig: /etc/rancher/k3s/k3s.yaml
+    src: "{{ temp_dir }}/{{ item }}"
+  with_items:
+    - elasticsearch-service.yaml
+    - elasticsearch-statefulset.yaml
+    - kibana-service.yaml
+    - fluentd-rbac.yaml
+    - fluentd-daemonset.yaml

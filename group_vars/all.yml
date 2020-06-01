@@ -12,6 +12,9 @@ openvpn_chart_url: http://storage.googleapis.com/kubernetes-charts
 traefik_chart: https://containous.github.io/traefik-helm-chart
 
 # Image and image tags
+elasticsearch_image: r1cebank/elasticsearch:7.7.0
+kibana_image: r1cebank/kibana:7.7.0
+fluentd_image: r1cebank/fluentd-kubernetes-daemonset:v1.9.1-debian-elasticsearch7-1.0
 openvpn_image: r1cebank/openvpn
 traefik_image: traefik:v2.2
 traefik_forward_auth_image: r1cebank/traefik-forward-auth:multiarch
@@ -85,6 +88,10 @@ external_services:
     service_port: 80
     protocol: TCP
     ingress_domain: code.elica.io
+
+# pv
+elasticsearch_pvc_size: 100Gi
+
 
 # for ansible
 ansible_python_interpreter: "/usr/bin/python"
