@@ -79,6 +79,12 @@ external_services:
     service_port: 80
     protocol: TCP
     ingress_domain: lab.elica.io
+  - name: code-server
+    ip: 192.168.1.41
+    source_port: 8000
+    service_port: 80
+    protocol: TCP
+    ingress_domain: code.elica.io
 
 # for ansible
 ansible_python_interpreter: "/usr/bin/python"

@@ -20,8 +20,8 @@ metadata:
 spec:
   redirectScheme:
     scheme: https
-    permanent: "true"
-    port: 443
+    permanent: true
+    port: "443"
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
@@ -37,8 +37,8 @@ spec:
         - name: traefik
           port: 80
       middlewares:
-        - name: redirect-https
-        - name: security
+        - name: kube-system-redirect-https@kubernetescrd
+        - name: kube-system-security@kubernetescrd
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
