@@ -62,11 +62,12 @@ acme_prod_url: https://acme-v02.api.letsencrypt.org/directory
 ddns_domains: "*.elica.io,elica.io"
 
 # which issuer to use for ingress (staging or prod)
-cert_issuer: staging
+cert_issuer: prod
 wildcard_cert_domain: "*.elica.io"
 
 # Ingress Information for services here
 gitea_ingress_domain: git.elica.io
+kibana_ingress_domain: kibana.elica.io
 
 # External services to be exposed in kubernetes
 external_services:

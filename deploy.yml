@@ -2,11 +2,11 @@
 - hosts: kube_master[0]
   any_errors_fatal: true
   roles:
-    - logging
+    - traefik
     - nfs-server
     - nfs-provisioner
+    - logging
     - metallb
-    - traefik
     - kube-dashboard
     - cloudflare-ddns
     - gitea

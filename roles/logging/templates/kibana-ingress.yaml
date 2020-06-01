@@ -1,0 +1,17 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: kibana-ingress
+  namespace: kube-logging
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`{{ kibana_ingress_domain }}`)
+      kind: Rule
+      services:
+      - name: kibana
+        port: 5601
+      middlewares:
+        - name: kube-system-traefik-sso@kubernetescrd
+  tls: {}
