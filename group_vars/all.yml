@@ -62,7 +62,7 @@ acme_prod_url: https://acme-v02.api.letsencrypt.org/directory
 ddns_domains: "*.elica.io,elica.io"
 
 # which issuer to use for ingress (staging or prod)
-cert_issuer: prod
+cert_issuer: staging
 wildcard_cert_domain: "*.elica.io"
 
 # Ingress Information for services here

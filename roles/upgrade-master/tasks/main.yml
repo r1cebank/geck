@@ -5,7 +5,7 @@
     extra_args: --user
 
 - name: install k3s
-  shell:  "curl -sfL {{ get_k3s_url }} | INSTALL_K3S_EXEC=\" --no-deploy traefik --docker --no-deploy servicelb\" K3S_KUBECONFIG_MODE=\"644\" INSTALL_K3S_VERSION=\"{{ k3s_version }}\" sh -"
+  shell:  "curl -sfL {{ get_k3s_url }} | INSTALL_K3S_EXEC=\" --no-deploy traefik --no-deploy servicelb\" K3S_KUBECONFIG_MODE=\"644\" INSTALL_K3S_VERSION=\"{{ k3s_version }}\" sh -"
   args:
     warn: no
 
