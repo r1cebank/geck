@@ -1,0 +1,23 @@
+apiVersion: helm.cattle.io/v1
+kind: HelmChart
+metadata:
+  name: pihole
+  namespace: kube-system
+spec:
+  chart: pihole
+  repo: {{ personal_chart_url }}
+  set:
+    persistentVolumeClaim.enabled: "true"
+    persistentVolumeClaim.storageClass: "nfs-client"
+  valuesContent: |-
+    serviceTCP:
+      loadBalancerIP: {{ pihole_loadbalancer_ip }}
+      annotations:
+        metallb.universe.tf/allow-shared-ip: pihole-svc
+      type: LoadBalancer
+
+    serviceUDP:
+      loadBalancerIP: {{ pihole_loadbalancer_ip }}
+      annotations:
+        metallb.universe.tf/allow-shared-ip: pihole-svc
+      type: LoadBalancer

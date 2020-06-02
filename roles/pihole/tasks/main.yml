@@ -1,0 +1,18 @@
+---
+- name: Ensure kube-system namespace
+  k8s:
+    name: kube-system
+    kubeconfig: /etc/rancher/k3s/k3s.yaml
+    kind: Namespace
+    state: present
+
+- name: Copy over helm deploy file
+  template:
+    src: pihole-helm.yaml
+    dest: "{{ temp_dir }}/pihole-helm.yaml"
+
+- name: Install pihole from helm
+  k8s:
+    state: present
+    kubeconfig: /etc/rancher/k3s/k3s.yaml
+    src: "{{ temp_dir }}/pihole-helm.yaml"
