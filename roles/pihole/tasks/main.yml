@@ -10,7 +10,6 @@
   template:
     src: pihole-helm.yaml
     dest: "{{ temp_dir }}/pihole-helm.yaml"
-
 - name: Install pihole from helm
   k8s:
     state: present
