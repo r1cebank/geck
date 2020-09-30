@@ -37,6 +37,11 @@
     group: root
     owner: root
 
+# Fix pi-hole permission issue https://github.com/MoJo2600/pihole-kubernetes/issues/39#issuecomment-701209672
+- name: Remove --manage-gids
+  become: yes
+  shell: sed -i 's/RPCMOUNTDOPTS="--manage-gids"/RPCMOUNTDOPTS=""/g' /etc/default/nfs-kernel-server
+
 - name: Restart nfs server
   become: yes
   service:
