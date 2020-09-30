@@ -3,10 +3,9 @@
   any_errors_fatal: true
   roles:
     - traefik
-    # - pihole
+    - pihole
     - nfs-server
     - nfs-provisioner
-    - logging
     - metallb
     - kube-dashboard
     - cloudflare-ddns
